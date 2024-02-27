@@ -1,4 +1,6 @@
 class CreateProducts < ActiveRecord::Migration[7.1]
+  disable_ddl_transaction!
+  
   def change
     create_table :products do |t|
       t.string :name, limit: 128, null: false
@@ -6,10 +8,14 @@ class CreateProducts < ActiveRecord::Migration[7.1]
       t.integer :quantity, null: false, default: 0
       t.text :description
       t.string :image
-      t.references :product_categories, null: false, foreign_key: true
+      t.bigint :product_category_id, null: false
 
       t.timestamps
     end
-    add_index :products, :name, unique: true
+
+    add_foreign_key :products, :product_categories
+    add_index :products, :product_category_id, algorithm: :concurrently
+
+    add_index :products, :name, unique: true, algorithm: :concurrently
   end
 end
