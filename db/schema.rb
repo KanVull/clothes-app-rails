@@ -28,12 +28,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_27_101611) do
     t.integer "quantity", default: 0, null: false
     t.text "description"
     t.string "image"
-    t.bigint "product_categories_id", null: false
+    t.bigint "product_category_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_products_on_name", unique: true
-    t.index ["product_categories_id"], name: "index_products_on_product_categories_id"
+    t.index ["product_category_id"], name: "index_products_on_product_category_id"
   end
 
-  add_foreign_key "products", "product_categories", column: "product_categories_id"
+  add_foreign_key "products", "product_categories"
 end
