@@ -1,13 +1,22 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
   <head>
-    <title>ClothesApp</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-    <%= javascript_importmap_tags %>
+    <title><%= @title %></title>
+
+    <%= stylesheet_link_tag 'bootstrap/css/bootstrap.min' %>
+
+    <!-- Custom styles for this template -->
+    <%= stylesheet_link_tag 'css/products' %>
+
   </head>
 
   <body>

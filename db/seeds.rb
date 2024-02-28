@@ -8,6 +8,77 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
-["category_1", "category_2"].each do |category|
+categories = ["Shoes", "Pants", "Shirts", "Jackets", "Bags"]
+categories.each do |category|
   ProductCategory.create!(name: category)
+end
+
+products = [
+  {
+    name: "Air 46", 
+    price: 5600.00,
+    quantity: 10,
+    description: "Men's Sneakers Flying Woven Casual Sports All-Purpose Men's Shoes Plus Size Shoes Shock Absorbing TPU Outsole",
+    published: true,
+    product_category_id: 1,
+  },
+  {
+    name: "Black shirt with monograms adidas Originals", 
+    price: 6090.00,
+    quantity: 10,
+    description: "Soft fabric for sweatshirts. Style and comfort are a way of life.",
+    published: true,
+    product_category_id: 3,
+  },
+  {
+    name: "Blue jacket The North Face", 
+    price: 23725.00,
+    quantity: 10,
+    description: "Smooth fabric. Waterproof coating. Light and warm down filling.",
+    published: true,
+    product_category_id: 4,
+  },
+  {
+    name: "Brown sport oversized-top ASOS DESIGN", 
+    price: 3390.00,
+    quantity: 10,
+    description: "Plush texture material. Comfortable and soft.",
+    published: false,
+    product_category_id: 4,
+  },
+  {
+    name: "Black backpack Nike Heritage", 
+    price: 2340.00,
+    quantity: 10,
+    description: "Thick fabric. Lightweight material.",
+    published: true,
+    product_category_id: 5,
+  },
+  {
+    name: "Dr Martens 1461 Bex 3-Eye Platform Black Shoes", 
+    price: 13590.00,
+    quantity: 10,
+    description: "Smooth leather upper. Natural material.",
+    published: false,
+    product_category_id: 1,
+  },
+  {
+    name: "ASOS DESIGN wide leg formal trousers in navy", 
+    price: 2890.00,
+    quantity: 10,
+    description: "Lightweight, stretchy seersucker textured fabric.",
+    published: true,
+    product_category_id: 2,
+  },
+]
+
+products.each do |product|
+  Product.create!(
+    name:                product[:name],
+    price:               product[:price],
+    quantity:            product[:quantity],
+    description:         product[:description],
+    published:           product[:published],
+    product_category_id: product[:product_category_id],
+  )
 end
