@@ -9,3 +9,17 @@ Rails.application.routes.draw do
   # root "posts#index"
   resources :products, only: [:index]
 end
+
+
+# /
+# /catalog
+# /catalog/:id
+
+# /catalog/category_1
+# /catalog/category_2
+
+# /products/:id
+
+# GET /cart
+# PUT /cart
+
