@@ -1,6 +1,6 @@
 class CreateProducts < ActiveRecord::Migration[7.1]
   disable_ddl_transaction!
-  
+
   def change
     create_table :products do |t|
       t.string :name, limit: 128, null: false
@@ -10,7 +10,6 @@ class CreateProducts < ActiveRecord::Migration[7.1]
       t.string :image
       t.datetime :published_at
       t.bigint :product_category_id, null: false
-
 
       t.timestamps
     end
