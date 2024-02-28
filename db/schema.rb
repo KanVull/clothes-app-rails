@@ -28,7 +28,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_27_101611) do
     t.integer "quantity", default: 0, null: false
     t.text "description"
     t.string "image"
-    t.boolean "published", default: false
+    t.datetime "published_at"
     t.bigint "product_category_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

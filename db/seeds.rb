@@ -19,7 +19,7 @@ products = [
     price: 5600.00,
     quantity: 10,
     description: "Men's Sneakers Flying Woven Casual Sports All-Purpose Men's Shoes Plus Size Shoes Shock Absorbing TPU Outsole",
-    published: true,
+    published_at: DateTime.new(2024, 2, 28, 13, 30, 0),
     product_category_id: 1,
   },
   {
@@ -27,7 +27,7 @@ products = [
     price: 6090.00,
     quantity: 10,
     description: "Soft fabric for sweatshirts. Style and comfort are a way of life.",
-    published: true,
+    published_at: DateTime.new(2024, 2, 28, 14, 30, 0),
     product_category_id: 3,
   },
   {
@@ -35,7 +35,7 @@ products = [
     price: 23725.00,
     quantity: 10,
     description: "Smooth fabric. Waterproof coating. Light and warm down filling.",
-    published: true,
+    published_at: DateTime.new(2024, 2, 28, 13, 30, 0),
     product_category_id: 4,
   },
   {
@@ -43,7 +43,7 @@ products = [
     price: 3390.00,
     quantity: 10,
     description: "Plush texture material. Comfortable and soft.",
-    published: false,
+    published_at: DateTime.new(2024, 2, 28, 13, 30, 0),
     product_category_id: 4,
   },
   {
@@ -51,7 +51,7 @@ products = [
     price: 2340.00,
     quantity: 10,
     description: "Thick fabric. Lightweight material.",
-    published: true,
+    published_at: DateTime.new(2024, 2, 28, 13, 30, 0),
     product_category_id: 5,
   },
   {
@@ -59,7 +59,7 @@ products = [
     price: 13590.00,
     quantity: 10,
     description: "Smooth leather upper. Natural material.",
-    published: false,
+    published_at: DateTime.new(2024, 2, 28, 14, 30, 0),
     product_category_id: 1,
   },
   {
@@ -67,7 +67,7 @@ products = [
     price: 2890.00,
     quantity: 10,
     description: "Lightweight, stretchy seersucker textured fabric.",
-    published: true,
+    published_at: DateTime.new(2024, 2, 28, 13, 30, 0),
     product_category_id: 2,
   },
 ]
@@ -78,7 +78,7 @@ products.each do |product|
     price:               product[:price],
     quantity:            product[:quantity],
     description:         product[:description],
-    published:           product[:published],
+    published_at:        product[:published_at],
     product_category_id: product[:product_category_id],
   )
 end

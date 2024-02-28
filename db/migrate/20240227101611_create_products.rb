@@ -8,7 +8,7 @@ class CreateProducts < ActiveRecord::Migration[7.1]
       t.integer :quantity, null: false, default: 0
       t.text :description
       t.string :image
-      t.boolean :published, default: false
+      t.datetime :published_at
       t.bigint :product_category_id, null: false
 
 
