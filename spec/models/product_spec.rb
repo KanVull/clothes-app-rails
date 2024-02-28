@@ -49,5 +49,4 @@ RSpec.describe Product, type: :model do
       expect(Product.published).not_to include(product_future_published)
     end
   end
-
 end
