@@ -8,9 +8,9 @@
     <meta name="author" content="">
     <title><%= @title %></title>
     <!-- Bootstrap core CSS -->
-    <%= stylesheet_link_tag '/bootstrap/css/bootstrap.min.css' %>
+    <%# stylesheet_link_tag '/bootstrap/css/bootstrap.min.css' %>
     <!-- Custom styles for this template -->
-    <%= stylesheet_link_tag '/css/products.css' %>
+    <%# stylesheet_link_tag '/css/products.css' %>
 </head>
 
 <body>
@@ -83,13 +83,13 @@
                 </ol>
                 <div class="carousel-inner" role="listbox">
                     <div class="carousel-item active">
-                      <%= image_tag "slides/slide-1.jpg", class: "d-block img-fluid", alt: "First slide" %>
+                      <%# image_tag "slides/slide-1.jpg", class: "d-block img-fluid", alt: "First slide" %>
                     </div>
                     <div class="carousel-item">
-                      <%= image_tag "slides/slide-2.jpg", class: "d-block img-fluid", alt: "Second slide" %>
+                      <%# image_tag "slides/slide-2.jpg", class: "d-block img-fluid", alt: "Second slide" %>
                     </div>
                     <div class="carousel-item">
-                      <%= image_tag "slides/slide-3.jpg", class: "d-block img-fluid", alt: "Third slide" %>
+                      <%# image_tag "slides/slide-3.jpg", class: "d-block img-fluid", alt: "Third slide" %>
                     </div>
                 </div>
                 <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
@@ -156,14 +156,7 @@
 </footer>
 
 <!-- Bootstrap core JavaScript -->
-<%= javascript_include_tag '/jquery/jquery.min.js' %>
-<%= javascript_include_tag '/bootstrap/js/bootstrap.bundle.min.js' %>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-        crossorigin="anonymous"></script>
 
-<!-- FontAwesome script -->
-<%= javascript_include_tag '/fontawesome/fontawesome-icons.js' %>
 
 </body>
 
