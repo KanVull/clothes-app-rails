@@ -78,3 +78,5 @@ gem "rubocop-rspec", "~> 2.26"
 gem "faker", "~> 3.2"
 
 gem "pagy", "~> 7.0"
+
+gem "rails-controller-testing", "~> 1.0"
