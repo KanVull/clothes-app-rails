@@ -74,3 +74,5 @@ end
 gem "factory_bot_rails", "~> 6.4"
 
 gem "rubocop-rspec", "~> 2.26"
+
+gem "faker", "~> 3.2"
