@@ -1,7 +1,9 @@
 class CatalogController < ApplicationController
+  include Pagy::Backend
+  
   def index
     @title = "Store - catalog"
-    @products = Product.published
+    @pagy, @products = pagy(Product.published, items: 3)
     @product_categories = ProductCategory.with_published_products
     render "index"
   end
@@ -9,7 +11,7 @@ class CatalogController < ApplicationController
   def show
     @title = "Store - #{params[:name]}"
     category = ProductCategory.find_by!(name: params[:name])
-    @products = category.products.published
+    @pagy, @products = pagy(category.products.published, items: 3)
     @product_categories = ProductCategory.with_published_products
     render "index"
   end
