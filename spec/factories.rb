@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :random_product, class: Product do
     name          { "#{Faker::Commerce.product_name}_#{Faker::Number.number(digits: 5)}" }
-    published_at  { Faker::Date.between(from: 7.days.ago, to: 2.days.from_now) }
+    published_at  { Faker::Date.between(from: 7.days.ago, to: Time.zone.now) }
     price         { Faker::Commerce.price(range: 1000..10000.0) }
     quantity      { Faker::Number.number(digits: 2) }
     
