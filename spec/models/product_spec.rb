@@ -33,7 +33,7 @@ RSpec.describe Product, type: :model do
   end
 
   context 'scopes' do
-    before do
+    before :each do
       @product_published = create(:random_product, published_at: 1.day.ago)
       @product_unpublished = create(:random_product, published_at: nil)
       @product_future_published = create(:random_product, published_at: 1.day.from_now)
