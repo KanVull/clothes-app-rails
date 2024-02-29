@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Product, type: :model do
   describe '#published?' do
-    let(:product) { build(:product, published_at: nil) }
+    let(:product) { build(:random_product, published_at: nil) }
 
     context 'when product is published' do
       let(:published_time) { 1.day.ago }
@@ -33,16 +33,11 @@ RSpec.describe Product, type: :model do
   end
 
   context 'scopes' do
-    before(:each) do
-      category = create(:product_category)
-      @product_published = create(:product, name: "Product 1", product_category: category, published_at: 1.day.ago)
-      @product_unpublished = create(:product, name: "Product 2",  product_category: category, published_at: nil)
-      @product_future_published = create(:product, name: "Product 3",  product_category: category, published_at: 1.day.from_now)
+    before do
+      @product_published = create(:random_product, published_at: 1.day.ago)
+      @product_unpublished = create(:random_product, published_at: nil)
+      @product_future_published = create(:random_product, published_at: 1.day.from_now)
     end
-
-    # let!(:product_published) { create(:product, published_at: 1.day.ago) }
-    # let!(:product_unpublished) { create(:product, published_at: nil) }
-    # let!(:product_future_published) { create(:product, published_at: 1.day.from_now) }
 
     describe '.published' do
       it 'includes products with a published_at in the past' do

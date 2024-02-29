@@ -1,14 +1,14 @@
 FactoryBot.define do
-  factory :product do
-    name { "Sample Product" }
-    published_at { nil }
-    price { 1 }
-    quantity { 10 }
+  factory :random_product, class: Product do
+    name          { Faker::Commerce.product_name }
+    published_at  { Faker::Date.between(from: 7.days.ago, to: 2.days.from_now) }
+    price         { Faker::Commerce.price(range: 1000..10000.0) }
+    quantity      { Faker::Number.number(digits: 2) }
     
-    product_category
+    association :product_category, factory: :random_product_category
   end
   
-  factory :product_category do
-    name { "Sample Category" }
+  factory :random_product_category, class: ProductCategory do
+    name { Faker::Commerce.material }
   end
 end
