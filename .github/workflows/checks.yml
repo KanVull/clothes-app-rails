@@ -36,7 +36,9 @@ jobs:
           PG_USER: postgres
           PG_PASSWORD: password
           RAILS_ENV: test
-        run: bundle exec bin/rails db:reset
+        run: |
+          bundle exec bin/rails db:migrate
+          bundle exec bin/rails db:seed
 
       - name: Run RSpec tests
         run: bundle exec rspec
