@@ -1,11 +1,11 @@
 ---
 name: Checks
 
-on: [push]
+on: [push, pull-request]
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     services:
       postgres:
@@ -19,17 +19,11 @@ jobs:
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: 3.3.0
-
-      - name: Install dependencies
-        run: |
-          gem install bundler
-          bundle install
+        with: bundle-cache: true
 
       - name: Database setup
         run: |
