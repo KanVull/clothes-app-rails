@@ -23,16 +23,14 @@ jobs:
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
-        with: bundle-cache: true
+        with:
+          bundle-cache: true
 
       - name: Database setup
-        run: |
-          rails db:setup RAILS_ENV=test
+        run: bundle exec rails db:setup RAILS_ENV=test
 
       - name: Run RSpec tests
-        run: |
-          rspec
+        run: bundle exec rspec
 
       - name: Run RuboCop
-        run: |
-          rubocop
+        run: bundle exec rubocop
