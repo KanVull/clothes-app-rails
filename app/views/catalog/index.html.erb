@@ -1,14 +1,28 @@
 <%= render 'shared/navbar' %>
 
 <!-- Page Content -->
+
 <div class="container">
   <div class="row">
     <div class="col-lg-3 mt-3">
+      Select category
       <div class="list-group">
         <% @product_categories.each do |category| %>
           <a href="<%= catalog_path(category.name) %>" class="list-group-item"><%= category.name %></a>
         <% end %>  
       </div>
+      <%= form_tag({ controller: 'catalog', action: 'filter', name: params[:name] }, method: :get) do %>
+        <%= label_tag(:query, "Search:") %>
+        <%= text_field_tag(:query, params[:query], placeholder: "Search products...") %>
+        <%= label_tag(:min_price, "Min Price:") %>
+        <%= number_field_tag(:min_price, params[:min_price]) %>
+      
+        <%= label_tag(:max_price, "Max Price:") %>
+        <%= number_field_tag(:max_price, params[:max_price]) %>
+      
+        <%= submit_tag("Filter") %>
+      <% end %>
+
     </div>
     <div class="col-lg-9">
       <div id="carouselExampleIndicators" class="carousel slide my-4" data-ride="carousel">
