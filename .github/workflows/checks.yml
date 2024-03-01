@@ -37,7 +37,7 @@ jobs:
           PG_PASSWORD: password
           RAILS_ENV: test
         run: |
-          bundle exec bin/rails db:migrate
+          bundle exec bin/rails db:setup
           bundle exec bin/rails db:seed
 
       - name: Run RSpec tests
