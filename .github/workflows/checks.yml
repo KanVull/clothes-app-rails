@@ -31,7 +31,7 @@ jobs:
 
       - name: Database setup
         env:
-          PG_DATABASE: postgres
+          PG_DATABASE: clothes_app_test
           PG_HOST: localhost
           PG_USER: postgres
           PG_PASSWORD: password
