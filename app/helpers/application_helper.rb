@@ -1,4 +1,4 @@
 module ApplicationHelper
   include Pagy::Frontend
-  require 'pagy/extras/bootstrap'
+  require "pagy/extras/bootstrap"
 end
