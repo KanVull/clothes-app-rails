@@ -11,7 +11,7 @@
           <a href="<%= catalog_path(category.name) %>" class="list-group-item"><%= category.name %></a>
         <% end %>  
       </div>
-      <%= form_tag({ controller: 'catalog', action: 'filter', name: params[:name] }, method: :get) do %>
+      <%= form_tag(@form_action_path, method: :get) do %>
         <%= label_tag(:query, "Search:") %>
         <%= text_field_tag(:query, params[:query], placeholder: "Search products...") %>
         <%= label_tag(:min_price, "Min Price:") %>
@@ -22,56 +22,34 @@
       
         <%= submit_tag("Filter") %>
       <% end %>
+      <a href="<%= catalog_index_path %>" class="list-group-item">Reset filtering</a>
 
     </div>
     <div class="col-lg-9">
-      <div id="carouselExampleIndicators" class="carousel slide my-4" data-ride="carousel">
-        <ol class="carousel-indicators">
-            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-        </ol>
-        <!-- <div class="carousel-inner" role="listbox">
-          <div class="carousel-item active">
-            <%= image_tag "slides/slide-1.jpg", class: "d-block img-fluid", alt: "First slide" %>
-          </div>
-          <div class="carousel-item">
-            <%= image_tag "slides/slide-2.jpg", class: "d-block img-fluid", alt: "Second slide" %>
-          </div>
-          <div class="carousel-item">
-            <%= image_tag "slides/slide-3.jpg", class: "d-block img-fluid", alt: "Third slide" %>
-          </div>
-        </div> -->
-        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="sr-only">Previous</span>
-        </a>
-        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="sr-only">Next</span>
-        </a>
-      </div>
-
-      <div class="row">
-        <% @products.each do |product| %>
-          <div class="col-lg-4 col-md-6 mb-4">
-            <div class="card h-100">
-              <!-- <a href="#">
-                <img class="card-img-top" src="vendor/img/products/Adidas-hoodie.png" alt="">
-              </a> -->
-              <div class="card-body">
-                <h4 class="card-title">
-                  <a href="#"><%= product.name %></a>
-                </h4>
-                <h5><%= product.price %></h5>
-                <p class="card-text"><%= product.description %></p>
-              </div>
-              <div class="card-footer text-center">
-                <button type="button" class="btn btn-outline-success">Add to Cart</button>
+      <div class="row mt-5 mx-4">
+        <% if @products.present? %>
+          <% @products.each do |product| %>
+            <div class="col-lg-4 col-md-6 mb-4">
+              <div class="card h-100">
+                <!-- <a href="#">
+                  <img class="card-img-top" src="vendor/img/products/Adidas-hoodie.png" alt="">
+                </a> -->
+                <div class="card-body">
+                  <h4 class="card-title">
+                    <a href="#"><%= product.name %></a>
+                  </h4>
+                  <h5><%= product.price %></h5>
+                  <p class="card-text"><%= product.description %></p>
+                </div>
+                <div class="card-footer text-center">
+                  <button type="button" class="btn btn-outline-success">Add to Cart</button>
+                </div>
               </div>
             </div>
-          </div>
-        <% end %>
+          <% end %>
+        <% else %>
+          No products
+        <% end %>  
       </div>
 
       <!-- Pagination links -->
