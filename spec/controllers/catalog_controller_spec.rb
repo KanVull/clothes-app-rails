@@ -58,6 +58,4 @@ RSpec.describe CatalogController, type: :controller do
       expect(assigns(:products).count).to eq(3)
     end
   end
-
-  describe ""
 end
