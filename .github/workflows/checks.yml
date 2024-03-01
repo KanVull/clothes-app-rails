@@ -10,16 +10,17 @@ jobs:
     services:
       postgres:
         image: postgres:latest
-        env:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: myapp_test
         ports:
           - 5432:5432
-        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout Repository
+        uses: actions/checkout@v4
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
@@ -27,7 +28,9 @@ jobs:
           bundler-cache: true
 
       - name: Database setup
-        run: bundle exec rails db:setup RAILS_ENV=test
+        env:
+          RAILS_ENV: test
+        run: bundle exec bin/rails db:setup
 
       - name: Run RSpec tests
         run: bundle exec rspec
