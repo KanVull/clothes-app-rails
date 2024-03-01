@@ -24,7 +24,7 @@ jobs:
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          bundle-cache: true
+          bundler-cache: true
 
       - name: Database setup
         run: bundle exec rails db:setup RAILS_ENV=test
