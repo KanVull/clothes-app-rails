@@ -1,6 +1,6 @@
 class CatalogController < ApplicationController
   include Pagy::Backend
-  
+
   def index
     @title = "Store - catalog"
     @pagy, @products = pagy(Product.published, items: 3)
