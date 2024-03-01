@@ -37,7 +37,7 @@ jobs:
           PG_PASSWORD: password
           RAILS_ENV: test
         run: |
-          bundle exec bin/rails db:setup
+          bundle exec bin/rails db:create db:schema:load
 
       - name: Run RSpec tests
         run: bundle exec rspec
