@@ -69,6 +69,14 @@ products = [
     description: 'Lightweight, stretchy seersucker textured fabric.',
     published_at: DateTime.new(2024, 2, 28, 13, 30, 0),
     product_category_id: 2
+  },
+  {
+    name: 'Dr. Martens',
+    price: 5670.00,
+    quantity: 10,
+    description: "New",
+    published_at: DateTime.new(2024, 3, 3, 13, 30),
+    product_category_id: 1
   }
 ]
 
