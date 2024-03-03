@@ -10,4 +10,9 @@ class Product < ApplicationRecord
   def published?
     published_at.present? && published_at <= Time.zone.now
   end
+
+  def ransackable_associations(auth_object = nil)
+    Rails.logger.info("WITHIN RANSACK ASSOCIATION")
+    super + %w[impressionable]
+  end
 end
