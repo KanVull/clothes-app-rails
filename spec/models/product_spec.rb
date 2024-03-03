@@ -33,13 +33,11 @@ RSpec.describe Product, type: :model do
   end
 
   context 'scopes' do
-    before :each do
-      @product_published = create(:random_product, published_at: 1.day.ago)
-      @product_unpublished = create(:random_product, published_at: nil)
-      @product_future_published = create(:random_product, published_at: 1.day.from_now)
-    end
-
     describe '.published' do
+      product_published = create(:random_product, published_at: 1.day.ago)
+      product_unpublished = create(:random_product, published_at: nil)
+      product_future_published = create(:random_product, published_at: 1.day.from_now)
+
       it 'includes products with a published_at in the past' do
         expect(Product.published).to include(@product_published)
       end
@@ -50,6 +48,57 @@ RSpec.describe Product, type: :model do
 
       it 'excludes products with a published_at in the future' do
         expect(Product.published).not_to include(@product_future_published)
+      end
+    end
+
+    describe "where_name_is_like scope" do
+      it "filters products by name" do
+        product1 = create(:random_product, name: "Apple iPhone")
+        product2 = create(:random_product, name: "Samsung Galaxy")
+
+        expect(Product.where_name_is_like("Apple")).to include(product1)
+        expect(Product.where_name_is_like("Apple")).not_to include(product2)
+      end
+
+      it "returns all products when name is not provided" do
+        product1 = create(:random_product, name: "Apple iPhone")
+        product2 = create(:random_product, name: "Samsung Galaxy")
+
+        expect(Product.where_name_is_like(nil)).to include(product1, product2)
+      end
+    end
+
+    describe "min_price_gte scope" do
+      it "filters products by minimum price" do
+        product1 = create(:random_product, price: 100)
+        product2 = create(:random_product, price: 200)
+
+        expect(Product.min_price_gte(150)).to include(product2)
+        expect(Product.min_price_gte(150)).not_to include(product1)
+      end
+
+      it "returns all products when minimum price is not provided" do
+        product1 = create(:random_product, price: 100)
+        product2 = create(:random_product, price: 200)
+
+        expect(Product.min_price_gte(nil)).to include(product1, product2)
+      end
+    end
+
+    describe "max_price_lte scope" do
+      it "filters products by maximum price" do
+        product1 = create(:random_product, price: 100)
+        product2 = create(:random_product, price: 200)
+
+        expect(Product.max_price_lte(150)).to include(product1)
+        expect(Product.max_price_lte(150)).not_to include(product2)
+      end
+
+      it "returns all products when maximum price is not provided" do
+        product1 = create(:random_product, price: 100)
+        product2 = create(:random_product, price: 200)
+
+        expect(Product.max_price_lte(nil)).to include(product1, product2)
       end
     end
   end
