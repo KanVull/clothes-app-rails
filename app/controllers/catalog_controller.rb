@@ -1,3 +1,5 @@
+require_relative "../services/products_filter.rb"
+
 class CatalogController < ApplicationController
   include Pagy::Backend
 
@@ -10,38 +12,21 @@ class CatalogController < ApplicationController
   end
 
   def show
-    @title = "Store - #{params[:name]}"
-    # category = find_product_category_by_name
-    products = Product.published.in_category(params[:name])
-    # products = category.products.published
+    @title = "Store - #{params[:category_name]}"
+    products = Product.published.in_category(params[:category_name])
     filter_products(products)
-    @form_action_path = catalog_path(params[:name])
+    @form_action_path = catalog_path(params[:category_name])
     render "index"
   end
 
   private
 
   def filter_products(products)
-    products = apply_query_filter(products)
-    products = apply_price_filters(products)
+    if params[:product_filter].present?
+      products = ProductsFilter.new(products, params[:product_filter]).filter
+    end
 
     @pagy, @products = pagy(products, items: 3)
     @product_categories = ProductCategory.with_published_products
-  end
-
-  def apply_price_filters(products)
-    min_price = params[:min_price].present? ? params[:min_price].to_f : 0
-    max_price = params[:max_price].present? ? params[:max_price].to_f : 100000000
-    products.where(price: min_price..max_price)
-  end
-
-  def apply_query_filter(products)
-    return products unless params[:query].present?
-
-    products.where("name ILIKE ?", "%#{params[:query]}%")
-  end
-
-  def find_product_category_by_name
-    ProductCategory.find_by!(name: params[:name])
   end
 end

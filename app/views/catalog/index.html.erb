@@ -8,19 +8,20 @@
       Select category
       <div class="list-group">
         <% @product_categories.each do |category| %>
-          <%= link_to category.name, catalog_path(category.name), class: "list-group-item"  %>
+          <%= link_to category.name, catalog_path(category_name: category.name), class: "list-group-item"  %>
         <% end %>  
       </div>
-      <%= form_tag(@form_action_path, method: :get) do %>
-        <%= label_tag(:query, "Search:") %>
-        <%= text_field_tag(:query, params[:query], placeholder: "Search products...") %>
-        <%= label_tag(:min_price, "Min Price:") %>
-        <%= number_field_tag(:min_price, params[:min_price]) %>
-      
-        <%= label_tag(:max_price, "Max Price:") %>
-        <%= number_field_tag(:max_price, params[:max_price]) %>
-      
-        <%= submit_tag("Filter") %>
+      <%= form_for ProductFilterForm.new, url: @form_action_path, method: :get do |form| %>
+        <%= form.label :query, "Search:" %>
+        <%= form.text_field :query, value: params.dig(:product_filter, :query), placeholder: "Search products..." %>
+
+        <%= form.label :min_price, "Min Price:" %>
+        <%= form.number_field :min_price, value: params.dig(:product_filter, :min_price) %>
+
+        <%= form.label :max_price, "Max Price:" %>
+        <%= form.number_field :max_price, value: params.dig(:product_filter, :max_price) %>
+
+        <%= form.submit "Filter" %>
       <% end %>
       <a href="<%= catalog_index_path %>" class="list-group-item">Reset filtering</a>
 

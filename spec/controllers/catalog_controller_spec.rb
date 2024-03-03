@@ -43,7 +43,7 @@ RSpec.describe CatalogController, type: :controller do
       product1 = create(:random_product, name: "Product 1")
       product2 = create(:random_product, name: "Product 2")
 
-      get :index, params: { query: "Product 1" }
+      get :index, params: { product_filter: { query: "Product 1" } }
 
       expect(assigns(:products)).to include(product1)
       expect(assigns(:products)).not_to include(product2)
@@ -53,7 +53,7 @@ RSpec.describe CatalogController, type: :controller do
       product1 = create(:random_product, price: 10)
       product2 = create(:random_product, price: 20)
 
-      get :index, params: { min_price: 15, max_price: 25 }
+      get :index, params: { product_filter: { min_price: 15, max_price: 25 } }
 
       expect(assigns(:products)).to include(product2)
       expect(assigns(:products)).not_to include(product1)
@@ -65,7 +65,7 @@ RSpec.describe CatalogController, type: :controller do
     let!(:products) { create_list(:random_product, 4, product_category: product_category) }
 
     before do
-      get :show, params: { name: product_category.name }
+      get :show, params: { category_name: product_category.name }
     end
 
     it "returns a success response" do
@@ -105,7 +105,7 @@ RSpec.describe CatalogController, type: :controller do
       product2 = create(:random_product, product_category: category, name: "Product 2")
       product_diff_cat = create(:random_product, name: "Product 11")
 
-      get :show, params: { name: category.name, query: "Product 1" }
+      get :show, params: { category_name: category.name, product_filter: { query: "Product 1" } }
 
       expect(assigns(:products)).to include(product1)
       expect(assigns(:products)).not_to include(product2)
@@ -117,7 +117,7 @@ RSpec.describe CatalogController, type: :controller do
       product2 = create(:random_product, product_category: category, price: 20)
       product_diff_cat = create(:random_product, price: 20)
 
-      get :show, params: { name: category.name, min_price: 15, max_price: 25 }
+      get :show, params: { category_name: category.name, product_filter: { min_price: 15, max_price: 25 } }
 
       expect(assigns(:products)).to include(product2)
       expect(assigns(:products)).not_to include(product1)

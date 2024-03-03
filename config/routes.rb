@@ -9,7 +9,7 @@ Rails.application.routes.draw do
     get "/", to: "catalog#index", on: :collection
   end
 
-  resources :catalog, only: [ :show ], param: :name do
+  resources :catalog, only: [ :show ], param: :category_name do
     get "/", to: "catalog#show", on: :member
   end
 end
