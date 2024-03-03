@@ -12,6 +12,7 @@ class CatalogController < ApplicationController
   def show
     @title = "Store - #{params[:name]}"
     category = find_product_category_by_name
+    # products = Product.published.in_category(category)
     products = category.products.published
     filter_products(products)
     @form_action_path = catalog_path(params[:name])
