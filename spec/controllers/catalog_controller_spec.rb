@@ -42,9 +42,9 @@ RSpec.describe CatalogController, type: :controller do
     it "filters products by query" do
       product1 = create(:random_product, name: "Product 1")
       product2 = create(:random_product, name: "Product 2")
-      
+
       get :index, params: { query: "Product 1" }
-      
+
       expect(assigns(:products)).to include(product1)
       expect(assigns(:products)).not_to include(product2)
     end
@@ -52,9 +52,9 @@ RSpec.describe CatalogController, type: :controller do
     it "filters products by price range" do
       product1 = create(:random_product, price: 10)
       product2 = create(:random_product, price: 20)
-      
+
       get :index, params: { min_price: 15, max_price: 25 }
-      
+
       expect(assigns(:products)).to include(product2)
       expect(assigns(:products)).not_to include(product1)
     end
@@ -104,9 +104,9 @@ RSpec.describe CatalogController, type: :controller do
       product1 = create(:random_product, product_category: category, name: "Product 1")
       product2 = create(:random_product, product_category: category, name: "Product 2")
       product_diff_cat = create(:random_product, name: "Product 11")
-      
+
       get :show, params: { name: category.name, query: "Product 1" }
-      
+
       expect(assigns(:products)).to include(product1)
       expect(assigns(:products)).not_to include(product2)
       expect(assigns(:products)).not_to include(product_diff_cat)
@@ -116,9 +116,9 @@ RSpec.describe CatalogController, type: :controller do
       product1 = create(:random_product, product_category: category, price: 10)
       product2 = create(:random_product, product_category: category, price: 20)
       product_diff_cat = create(:random_product, price: 20)
-      
+
       get :show, params: { name: category.name, min_price: 15, max_price: 25 }
-      
+
       expect(assigns(:products)).to include(product2)
       expect(assigns(:products)).not_to include(product1)
       expect(assigns(:products)).not_to include(product_diff_cat)
