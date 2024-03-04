@@ -1,4 +1,5 @@
 <h1>Products</h1>
+<%= link_to "New Product", new_admin_product_path, class: "btn btn-primary" %>
 
 <table class="table table-hover">
   <thead class="thead-dark">
@@ -22,9 +23,11 @@
         <td><%= p.category %></td>
         <td><%= p.published_at %></td>
         <td>
-          <%= link_to "View", admin_product_path(p) %>, 
-          <%= link_to "Edit", edit_admin_product_path(p) %>, 
-          <%= link_to "Delete", admin_product_path(p), method: :destroy %>
+          <%= link_to "View", admin_product_path(p), class: "btn btn-info"%>
+          <%= link_to "Edit", edit_admin_product_path(p), class: "btn btn-secondary" %> 
+          <%= button_to "Delete", admin_product_path(p), method: :delete, 
+              data: { confirm: "Are you sure you want to delete this product?" }, 
+              form_class: "d-inline", class: "btn btn-danger" %>
         </td>
       </tr>
     <% end %>
