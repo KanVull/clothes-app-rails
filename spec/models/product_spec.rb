@@ -22,28 +22,22 @@ RSpec.describe Product, type: :model do
     let(:product) { build(:random_product, published_at: nil) }
 
     context 'when product is published' do
-      let(:published_time) { 1.day.ago }
-
       it 'returns true' do
-        product.published_at = published_time
+        product.published_at = 1.day.ago
         expect(product.published?).to eq(true)
       end
     end
 
     context 'when product is not published' do
-      let(:unpublished_time) { nil }
-
       it 'returns false' do
-        product.published_at = unpublished_time
+        product.published_at = nil
         expect(product.published?).to eq(false)
       end
     end
 
     context 'when product is scheduled to be published in the future' do
-      let(:future_published_time) { 1.day.from_now }
-
       it 'returns false' do
-        product.published_at = future_published_time
+        product.published_at = 1.day.from_now
         expect(product.published?).to eq(false)
       end
     end
