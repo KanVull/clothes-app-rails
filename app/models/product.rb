@@ -1,6 +1,8 @@
 class Product < ApplicationRecord
   belongs_to :product_category
 
+  validates :name, :price, :quantity, :product_category_id, presence: true
+
   scope :published, -> { where("published_at <= ?", Time.zone.now) }
   scope :in_category, ->(category_name) { where(product_category_id: ProductCategory.where(name: category_name)) }
   scope :where_name_is_like, ->(name) { where("name ILIKE ?", "%#{name}%") if name.present? }
