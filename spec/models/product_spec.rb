@@ -1,7 +1,23 @@
 require 'rails_helper'
 require 'shared_examples/price_filters'
+require 'shared_examples/required_fields'
 
 RSpec.describe Product, type: :model do
+  describe "validations" do
+    let!(:category) { create(:random_product_category) }
+    let!(:product) { create(:random_product, product_category: category) }
+    subject { product }
+
+    it "is valid with valid attributes" do
+      expect(product).to be_valid
+    end
+
+    it_behaves_like "required_fields", :name
+    it_behaves_like "required_fields", :price
+    it_behaves_like "required_fields", :quantity
+    it_behaves_like "required_fields", :product_category_id
+  end
+
   describe '#published?' do
     let(:product) { build(:random_product, published_at: nil) }
 
