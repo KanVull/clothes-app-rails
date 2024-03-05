@@ -18,15 +18,16 @@ class Admin::ProductsController < ApplicationController
   def create
     @product = Product.new(product_params)
 
-    if @product.name != product_params[:name] && product_name_is_not_unique?(product_params[:name])
+    if product_name_is_not_unique?(product_params[:name])
       render :new
       return
     end
 
     if @product.save
-      redirect_to admin_products_path, notice: 'Product was successfully created.'
+      redirect_to admin_products_path, notice: "Product was successfully created."
     else
-      render :new, notice: 'Product wasn\'t created!'
+      flash.now[:warning] = "Product wasn't created!"
+      render :new
     end
   end
 
@@ -37,15 +38,16 @@ class Admin::ProductsController < ApplicationController
 
   def update
     @product = Product.find(params[:id])
- 
+
     if @product.name != product_params[:name] && product_name_is_not_unique?(product_params[:name])
       render :edit
       return
     end
 
     if @product.update(product_params)
-      redirect_to admin_product_path(@product), notice: 'Product was successfully updated.'
+      redirect_to admin_product_path(@product), notice: "Product was successfully updated."
     else
+      flash.now[:warning] = "Product wasn't updated!"
       render :edit
     end
   end
@@ -53,7 +55,7 @@ class Admin::ProductsController < ApplicationController
   def destroy
     @product = Product.find(params[:id])
     @product.destroy
-    redirect_to admin_products_path, notice: 'Product was successfully deleted.'
+    redirect_to admin_products_path, notice: "Product was successfully deleted."
   end
 
   private
@@ -76,6 +78,6 @@ class Admin::ProductsController < ApplicationController
       flash.now[:warning] = "A product with the name '#{existing_product.name}' already exists."
       return true
     end
-    return false
+    false
   end
 end

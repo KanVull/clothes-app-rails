@@ -14,19 +14,19 @@
           <%= link_to category.name, catalog_path(category_name: category.name), class: "list-group-item"  %>
         <% end %>  
       </div>
-      <%= form_for ProductFilterForm.new, url: @form_action_path, method: :get do |form| %>
+      <%= form_for @filter, url: request.path, method: :get do |form| %>
         <%= form.label :query, "Search:" %>
-        <%= form.text_field :query, value: params.dig(:product_filter, :query), placeholder: "Search products..." %>
+        <%= form.text_field :query, placeholder: "Search products..." %>
 
         <%= form.label :min_price, "Min Price:" %>
-        <%= form.number_field :min_price, value: params.dig(:product_filter, :min_price) %>
+        <%= form.number_field :min_price %>
 
         <%= form.label :max_price, "Max Price:" %>
-        <%= form.number_field :max_price, value: params.dig(:product_filter, :max_price) %>
+        <%= form.number_field :max_price %>
 
         <%= form.submit "Filter" %>
       <% end %>
-      <a href="<%= catalog_index_path %>" class="list-group-item">Reset filtering</a>
+      <%= link_to "Reset filtering", catalog_path, class: "list-group-item" %>
 
     </div>
     <div class="col-lg-9">

@@ -4,29 +4,29 @@ class CatalogController < ApplicationController
   include Pagy::Backend
 
   def index
-    @title = "Store - Catalog"
-    products = Product.published
-    filter_products(products)
-    @form_action_path = catalog_index_path
-    render "index"
-  end
+    @f_params = filter_params
+    if params[:category_name].present?
+      ProductCategory.find_by_name!(params[:category_name])
 
-  def show
-    @title = "Store - #{params[:category_name]}"
-    products = Product.published.in_category(params[:category_name])
-    filter_products(products)
-    @form_action_path = catalog_path(params[:category_name])
+      @title = "Store - #{params[:category_name]}"
+      @f_params = @f_params.merge({ category_name: params[:category_name] })
+    else
+      @title = "Store - Catalog"
+    end
+    @filter = ProductsFilter.new(@f_params)
+    @products = @filter.filter(Product.all)
+    show_products_categories
     render "index"
   end
 
   private
 
-  def filter_products(products)
-    if params[:product_filter].present?
-      products = ProductsFilter.new(products, params[:product_filter]).filter
-    end
-
-    @pagy, @products = pagy(products, items: 3)
+  def show_products_categories
+    @pagy, @products = pagy(@products, items: 3)
     @product_categories = ProductCategory.with_published_products.order(:name)
+  end
+
+  def filter_params
+    params.fetch(:product_filter, {}).permit(:query, :min_price, :max_price)
   end
 end

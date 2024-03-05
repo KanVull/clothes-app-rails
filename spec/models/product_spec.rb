@@ -12,6 +12,16 @@ RSpec.describe Product, type: :model do
       expect(product).to be_valid
     end
 
+    it "is invalid with a price less than 0" do
+      product.price = -5
+      expect(product).not_to be_valid
+    end
+
+    it "is invalid with a quantity less than 0" do
+      product.quantity = -1
+      expect(product).not_to be_valid
+    end
+
     it_behaves_like "required_fields", :name
     it_behaves_like "required_fields", :price
     it_behaves_like "required_fields", :quantity
