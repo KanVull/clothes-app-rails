@@ -10,5 +10,6 @@ FactoryBot.define do
 
   factory :random_product_category, class: ProductCategory do
     name { "#{Faker::Commerce.material}_#{Faker::Number.number(digits: 5)}" }
+    shown_name { "#{Faker::Commerce.material}_#{Faker::Number.number(digits: 5)}" }
   end
 end

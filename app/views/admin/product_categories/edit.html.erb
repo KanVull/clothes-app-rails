@@ -1,0 +1,8 @@
+<div class="container">
+  <h1>Edit Product Category</h1>
+  <hr>
+  <%= render partial: "form", locals: { product_category: @product_category } %>
+  <%= button_to "Delete", admin_product_category_path(@product_category), method: :delete,
+                data: { confirm: "Are you sure you want to delete this product?" }, 
+                class: "btn btn-danger" %>
+</div>
