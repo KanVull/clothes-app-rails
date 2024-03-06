@@ -8,9 +8,39 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
-categories = %w[Shoes Pants Shirts Jackets Bags]
+categories = [
+  {
+    name: "shoes",
+    shown_name: "Shoes",
+    descriprion: "This is fun!"
+  },
+  {
+    name: "pants",
+    shown_name: "Pants",
+    descriprion: "This is fun!"
+  },
+  {
+    name: "shirts",
+    shown_name: "Shirts",
+    descriprion: "This is fun!"
+  },
+  {
+    name: "jackets",
+    shown_name: "Jackets",
+    descriprion: "This is fun!"
+  },
+  {
+    name: "back-bags",
+    shown_name: "Back bags",
+    descriprion: "This is fun!"
+  }
+]
 categories.each do |category|
-  ProductCategory.create!(name: category)
+  ProductCategory.create!(
+    name: category[:name],
+    shown_name: category[:shown_name],
+    description: category[:description]
+  )
 end
 
 products = [

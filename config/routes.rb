@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   get "/admin", to: "admin#dashboard"
   namespace "admin" do
     resources :products
+    resources :product_categories
   end
 
   match "*unmatched", to: "application#render_404", via: :all
