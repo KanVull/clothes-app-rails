@@ -81,3 +81,5 @@ gem "rails-controller-testing", "~> 1.0"
 gem "bcrypt", "~> 3.1.7"
 
 gem "sassc-rails", "~> 2.1"
+
+gem "vite_rails", "~> 3.0"
