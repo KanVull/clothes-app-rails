@@ -39,7 +39,7 @@
                   <p class="card-text"><%= product.description %></p>
                 </div>
                 <div class="card-footer text-center">
-                  <%= button_to "Add to Cart", cart_path(product_id: product.id, quantity: 1), method: :patch %>
+                  <%= button_to "Add to Cart", cart_path(product_id: product.id, quantity: 1), method: :patch, class: "btn btn-success" %>
                 </div>
               </div>
             </div>
