@@ -3,8 +3,8 @@ Rails.application.routes.draw do
 
   get "/catalog(/:category_name)", to: "catalog#index", as: "catalog"
 
-  # post '/add_to_cart/:product_id', to: 'carts#update', as: 'add_to_cart'
   resource :cart, only: %i[show update]
+  resources :orders
 
   get "/admin", to: "admin#dashboard"
   namespace "admin" do

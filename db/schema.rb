@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_03_18_124309) do
+ActiveRecord::Schema[7.1].define(version: 2024_03_19_095034) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -30,6 +30,27 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_18_124309) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "order_products", force: :cascade do |t|
+    t.bigint "order_id", null: false
+    t.bigint "product_id", null: false
+    t.integer "quantity", default: 0, null: false
+    t.decimal "price_at_purchase", default: "0.0", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["order_id"], name: "index_order_products_on_order_id"
+    t.index ["product_id"], name: "index_order_products_on_product_id"
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.string "session_key", null: false
+    t.string "email", null: false
+    t.string "shipping_address"
+    t.string "status"
+    t.decimal "total_amount", precision: 12, scale: 2, default: "0.0", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "product_categories", force: :cascade do |t|
     t.string "name", null: false
     t.string "shown_name", null: false
@@ -41,7 +62,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_18_124309) do
 
   create_table "products", force: :cascade do |t|
     t.string "name", limit: 128, null: false
-    t.decimal "price", precision: 7, scale: 2, default: "0.0", null: false
+    t.decimal "price", precision: 12, scale: 2, default: "0.0", null: false
     t.integer "quantity", default: 0, null: false
     t.text "description"
     t.string "image"
@@ -55,5 +76,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_18_124309) do
 
   add_foreign_key "cart_products", "carts"
   add_foreign_key "cart_products", "products"
+  add_foreign_key "order_products", "orders"
+  add_foreign_key "order_products", "products"
   add_foreign_key "products", "product_categories"
 end

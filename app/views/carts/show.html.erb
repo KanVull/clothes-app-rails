@@ -20,8 +20,8 @@
           <td><%= cart_product.product.price %></td>
           <td><%= cart_product.quantity %></td>
           <td>
-            <%= button_to "-1", cart_path(product_id: cart_product.product_id, quantity: -1), method: :patch, class: 'btn btn-secondary'%>
-            <%= button_to "+1", cart_path(product_id: cart_product.product_id, quantity: 1), method: :patch, class: 'btn btn-secondary'%>
+            <%= button_to "-1", cart_path(product_id: cart_product.product_id, quantity: -1), method: :patch, class: 'btn btn-info'%>
+            <%= button_to "+1", cart_path(product_id: cart_product.product_id, quantity: 1), method: :patch, class: 'btn btn-info'%>
           </td>
           <td><%= cart_product.product.price * cart_product.quantity %></td>
           <td>
@@ -31,7 +31,7 @@
       <% end %>
     </tbody>
   </table>
-  <%= button_to "Place order", cart_path, class: "btn btn-outline-success" %>
+  <%= button_to "Place Order", new_order_path, method: :get, class: 'btn btn-outline-success' %>
 <% else %>
   <p>Your cart is empty.</p>
 <% end %>
