@@ -1,5 +1,6 @@
 class Product < ApplicationRecord
   belongs_to :product_category
+  has_many :cart_products, dependent: :destroy
 
   validates :name, :price, :quantity, :product_category_id, presence: true
   validates :price, :quantity, numericality: { greater_than_or_equal_to: 0 }

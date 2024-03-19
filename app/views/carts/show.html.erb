@@ -1,0 +1,37 @@
+
+<h1>Your Cart</h1>
+
+<% if @cart.cart_products.any? %>
+  <table>
+    <thead>
+      <tr>
+        <th>Product</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th/>
+        <th>Total price</th>
+        <th>Del</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @cart.cart_products.each do |cart_product| %>
+        <tr>
+          <td><%= cart_product.product.name %></td>
+          <td><%= cart_product.product.price %></td>
+          <td><%= cart_product.quantity %></td>
+          <td>
+            <%= button_to "-1", cart_path(product_id: cart_product.product_id, quantity: -1), method: :patch, class: 'btn btn-secondary'%>
+            <%= button_to "+1", cart_path(product_id: cart_product.product_id, quantity: 1), method: :patch, class: 'btn btn-secondary'%>
+          </td>
+          <td><%= cart_product.product.price * cart_product.quantity %></td>
+          <td>
+            <%= button_to "Remove from Cart", cart_path(product_id: cart_product.product_id, quantity: 0), method: :patch, class: 'btn btn-outline-danger'%>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <%= button_to "Place order", cart_path, class: "btn btn-outline-success" %>
+<% else %>
+  <p>Your cart is empty.</p>
+<% end %>
