@@ -17,12 +17,12 @@ class OrdersController < ApplicationController
 
       if @order.save
         cart.destroy
-        redirect_to order_path(@order), notice: 'Order placed successfully!'
+        redirect_to order_path(@order), notice: "Order placed successfully!"
       else
         render :new
       end
     else
-      redirect_to root_path, alert: 'Cart is empty!'
+      redirect_to root_path, alert: "Cart is empty!"
     end
   end
 
