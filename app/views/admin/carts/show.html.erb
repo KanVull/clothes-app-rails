@@ -1,0 +1,11 @@
+<div class="container">
+  <h1>Cart: <%= @cart.id %></h1>
+  <hr>
+  <% if @cart.items.any? %>
+    <%= render partial: 'shared/items_table', locals: { items: @cart.items, total_amount: @cart.total_amount } %>
+    <hr>
+    <%= button_to "Delete", admin_cart_path(@cart), method: :delete, data: { confirm: "Are you sure you want to delete this cart?" }, class: "btn btn-danger" %>
+  <% else %>
+    <p>This cart is empty.</p>
+  <% end %>
+</div>

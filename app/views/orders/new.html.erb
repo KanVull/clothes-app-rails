@@ -1,35 +1,14 @@
-<%= form_for @order, url: orders_path, method: :post do |form| %>
-  <%= form.label :email %>
-  <%= form.email_field :email %>
+<div class="container">
+  <%= form_for @order, url: orders_path, method: :post do |form| %>
+    <%= form.label :email %>
+    <%= form.email_field :email %>
+    <%= form.label :shipping_address %>
+    <%= form.text_field :shipping_address %>
 
-  <table>
-    <thead>
-      <tr>
-        <th>Product Name</th>
-        <th>Price</th>
-        <th>Quantity</th>
-        <th>Total Price</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @order.order_products.each do |order_product| %>
-        <tr>
-          <td><%= order_product.product.name %></td>
-          <td><%= order_product.product.price %></td>
-          <td><%= order_product.quantity %></td>
-          <td><%= order_product.product.price * order_product.quantity %></td>
-        </tr>
-      <% end %>
-    </tbody>
-    <tfoot>
-      <tr>
-        <td colspan="3">Total:</td>
-        <td><%= @order.total_amount %></td>
-      </tr>
-    </tfoot>
-  </table>
+    <%= render partial: 'shared/items_table', locals: { items: @order.items, total_amount: @order.total_amount } %>
 
-  <%= form.submit 'Place Order', class: 'btn btn-success' %>
-<% end %>
+    <%= form.submit 'Place Order', class: 'btn btn-success' %>
+  <% end %>
 
-<%= link_to "Cancel", cart_path, class: 'nav-link' %>
+  <%= link_to "Cancel", cart_path, class: 'nav-link' %>
+</div>
