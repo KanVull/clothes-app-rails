@@ -2,17 +2,14 @@ class OrdersController < ApplicationController
   def new
     @order = Order.new
     cart = Cart.find_by(session_key: session.id.to_s)
-    @order_products = cart.cart_products
-    @total_amount = cart.total_amount
+    @order.create_from_cart(cart)
   end
 
   def create
-    debugger
     @order = Order.new(order_params)
     cart = Cart.find_by(session_key: session.id.to_s)
 
     if cart
-      # @order.session_key = session.id.to_s
       @order.create_from_cart(cart)
 
       if @order.save

@@ -2,6 +2,8 @@ class Order < ApplicationRecord
   has_many :order_products, dependent: :destroy
   has_many :products, through: :order_products
 
+  validates :email, :session_key, presence: true
+
   def self.with_order_products
     includes(:order_products)
   end
@@ -16,6 +18,5 @@ class Order < ApplicationRecord
       )
     end
     self.total_amount = cart.total_amount
-    save
   end
 end
