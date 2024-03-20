@@ -4,8 +4,8 @@ require 'shared_examples/required_fields'
 
 RSpec.describe Product, type: :model do
   describe "validations" do
-    let!(:category) { create(:random_product_category) }
-    let!(:product) { create(:random_product, product_category: category) }
+    let!(:category) { create(:product_category) }
+    let!(:product) { create(:product, product_category: category) }
     subject { product }
 
     it "is valid with valid attributes" do
@@ -29,7 +29,7 @@ RSpec.describe Product, type: :model do
   end
 
   describe '#published?' do
-    let(:product) { build(:random_product, published_at: nil) }
+    let(:product) { build(:product, published_at: nil) }
 
     context 'when product is published' do
       it 'returns true' do
@@ -55,9 +55,9 @@ RSpec.describe Product, type: :model do
 
   context 'scopes' do
     describe '.published' do
-      let!(:product_published) { create(:random_product, published_at: 1.day.ago) }
-      let!(:product_unpublished) { create(:random_product, published_at: nil) }
-      let!(:product_future_published) { create(:random_product, published_at: 1.day.from_now) }
+      let!(:product_published) { create(:product, published_at: 1.day.ago) }
+      let!(:product_unpublished) { create(:product, published_at: nil) }
+      let!(:product_future_published) { create(:product, published_at: 1.day.from_now) }
 
       it 'includes products with a published_at in the past' do
         expect(Product.published).to include(product_published)
@@ -73,8 +73,8 @@ RSpec.describe Product, type: :model do
     end
 
     describe ".where_name_is_like" do
-      let!(:product1) { create(:random_product, name: "Hoodie") }
-      let!(:product2) { create(:random_product, name: "Pants") }
+      let!(:product1) { create(:product, name: "Hoodie") }
+      let!(:product2) { create(:product, name: "Pants") }
 
       it "filters products by name" do
         expect(Product.where_name_is_like("Hoodie")).to include(product1)

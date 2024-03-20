@@ -1,6 +1,6 @@
 RSpec.shared_examples "price filter" do |filter_method, comparator, price|
-  let!(:product1) { create(:random_product, price: 100) }
-  let!(:product2) { create(:random_product, price: 200) }
+  let!(:product1) { create(:product, price: 100) }
+  let!(:product2) { create(:product, price: 200) }
 
   it "filters products by #{comparator} price" do
     expect(Product.public_send(filter_method, price)).to include(comparator == 'min' ? product2 : product1)

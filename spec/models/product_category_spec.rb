@@ -1,10 +1,10 @@
 RSpec.describe ProductCategory, type: :model do
   describe ".with_published_products" do
-    let!(:category1) { create(:random_product_category) }
-    let!(:category2) { create(:random_product_category) }
+    let!(:category1) { create(:product_category) }
+    let!(:category2) { create(:product_category) }
 
-    let!(:published_product) { create(:random_product, product_category: category1, published_at: Time.zone.now) }
-    let!(:unpublished_product) { create(:random_product, product_category: category2, published_at: nil) }
+    let!(:published_product) { create(:product, product_category: category1, published_at: Time.zone.now) }
+    let!(:unpublished_product) { create(:product, product_category: category2, published_at: nil) }
 
     it "returns product categories with published products" do
       categories_with_published_products = ProductCategory.with_published_products

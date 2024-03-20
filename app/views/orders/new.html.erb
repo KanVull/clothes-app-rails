@@ -12,7 +12,7 @@
       </tr>
     </thead>
     <tbody>
-      <% @order_products.each do |order_product| %>
+      <% @order.order_products.each do |order_product| %>
         <tr>
           <td><%= order_product.product.name %></td>
           <td><%= order_product.product.price %></td>
@@ -24,7 +24,7 @@
     <tfoot>
       <tr>
         <td colspan="3">Total:</td>
-        <td><%= @total_amount %></td>
+        <td><%= @order.total_amount %></td>
       </tr>
     </tfoot>
   </table>

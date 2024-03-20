@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Admin::ProductsController, type: :controller do
   describe "POST #create" do
-    let!(:category) { create(:random_product_category) }
+    let!(:category) { create(:product_category) }
     let(:valid_params) do
       {
         product: {
@@ -53,9 +53,9 @@ RSpec.describe Admin::ProductsController, type: :controller do
   end
 
   describe "PATCH #update" do
-    let!(:category) { create(:random_product_category) }
-    let!(:category2) { create(:random_product_category) }
-    let(:product) { create(:random_product, product_category: category) }
+    let!(:category) { create(:product_category) }
+    let!(:category2) { create(:product_category) }
+    let(:product) { create(:product, product_category: category) }
 
     context "with valid params" do
       let(:valid_params) do
@@ -91,7 +91,7 @@ RSpec.describe Admin::ProductsController, type: :controller do
       end
 
       it "does not update the product with non-unique name and renders edit template" do
-        duplicate_product = create(:random_product, name: "Duplicate Name")
+        duplicate_product = create(:product, name: "Duplicate Name")
         patch :update, params: { id: product.id, product: { name: "Duplicate Name" } }
         expect(response).to render_template(:edit)
       end
@@ -99,7 +99,7 @@ RSpec.describe Admin::ProductsController, type: :controller do
   end
 
   describe "DELETE #destroy" do
-    let(:product) { create(:random_product) }
+    let(:product) { create(:product) }
 
     it "destroys the product" do
       product1 = product
