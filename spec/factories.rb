@@ -26,7 +26,6 @@ FactoryBot.define do
 
   factory :order, class: Order do
     email { Faker::Internet.email }
-    session_key { Faker::Alphanumeric.alphanumeric(number: 10) }
   end
 
   factory :order_product, class: OrderProduct do
