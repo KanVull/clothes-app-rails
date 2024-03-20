@@ -1,14 +1,24 @@
 class Cart < ApplicationRecord
-  has_many :cart_products, dependent: :destroy
-  has_many :products, through: :cart_products
+  has_many :items, class_name: "CartProduct", dependent: :destroy
+  has_many :products, through: :items
 
   validates :session_key, presence: true
 
-  def self.with_cart_products
-    includes(:cart_products)
+  def self.with_items
+    includes(:items)
+  end
+
+  def update_item_quantity(product_id, quantity)
+    item = items.find_or_initialize_by(product_id: product_id)
+    item.quantity += quantity.to_i
+    if item.quantity <= 0 || quantity.to_i == 0
+      item.destroy
+    else
+      item.save
+    end
   end
 
   def total_amount
-    cart_products.sum { |cart_product| cart_product.product.price * cart_product.quantity }
+    items.sum { |item| item.product.price * item.quantity }
   end
 end

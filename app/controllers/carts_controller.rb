@@ -6,14 +6,7 @@ class CartsController < ApplicationController
 
   def update
     product = Product.find(params[:product_id])
-    cart_product = @cart.cart_products.find_or_initialize_by(product_id: product.id)
-
-    cart_product.quantity += params[:quantity].to_i
-    if cart_product.quantity <= 0 or params[:quantity].to_i == 0
-      cart_product.destroy
-    else
-      cart_product.save
-    end
+    @cart.update_item_quantity(product.id, params[:quantity])
   end
 
   private

@@ -1,16 +1,15 @@
 class OrdersController < ApplicationController
   def new
-    @order = Order.new
     cart = Cart.find_by(session_key: session.id.to_s)
-    @order.create_from_cart(cart)
+    @order = Order.create_from_cart(cart)
   end
 
   def create
-    @order = Order.new(order_params)
     cart = Cart.find_by(session_key: session.id.to_s)
 
     if cart
-      @order.create_from_cart(cart)
+      @order = Order.create_from_cart(cart)
+      @order.assign_attributes(order_params)
 
       if @order.save
         cart.destroy
