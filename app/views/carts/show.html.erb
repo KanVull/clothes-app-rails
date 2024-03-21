@@ -18,10 +18,14 @@
           <tr>
             <td><%= item.product.name %></td>
             <td><%= item.product.price %></td>
-            <td><%= item.quantity %></td>
             <td>
-              <%= button_to "-1", cart_path(product_id: item.product_id, quantity: -1), method: :patch, class: 'btn btn-info'%>
-              <%= button_to "+1", cart_path(product_id: item.product_id, quantity: 1), method: :patch, class: 'btn btn-info'%>
+              <%= form_tag(cart_path, method: :patch) do %>
+                <%= hidden_field_tag :product_id, item.product_id %>
+                <%= number_field_tag "quantity", item.quantity, class: 'form-control', min: 1 %>
+                <%= button_tag "Update", type: "submit", class: "btn btn-info" %>
+              <% end %>
+            </td>
+            <td>
             </td>
             <td><%= item.product.price * item.quantity %></td>
             <td>

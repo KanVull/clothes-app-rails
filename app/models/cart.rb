@@ -10,15 +10,19 @@ class Cart < ApplicationRecord
 
   def update_item_quantity(product_id, quantity)
     item = items.find_or_initialize_by(product_id: product_id)
-    item.quantity += quantity.to_i
-    if item.quantity <= 0 || quantity.to_i == 0
-      item.destroy
-    else
-      item.save
-    end
+    item.quantity = quantity
+    item.quantity <= 0 ? item.destroy : item.save
   end
 
   def total_amount
     items.sum { |item| item.product.price * item.quantity }
+  end
+
+  def has_item?(product_id)
+    items.find_by(product_id: product_id).present?
+  end
+
+  def items_count
+    items.count
   end
 end
