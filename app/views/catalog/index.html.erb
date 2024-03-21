@@ -33,17 +33,13 @@
                 </a> -->
                 <div class="card-body">
                   <h4 class="card-title">
-                    <a href="#"><%= product.name %></a>
+                    <%= link_to product.name, product_path(product.id) %>
                   </h4>
                   <h5><%= product.price %></h5>
                   <p class="card-text"><%= product.description %></p>
                 </div>
                 <div class="card-footer text-center">
-                  <% if Current.cart.present? && Current.cart.has_item?(product.id) %>
-                    <%= button_to "Remove from Cart", cart_path(product_id: product.id, quantity: 0), method: :patch, class: 'btn btn-outline-danger'%>
-                  <% else %>
-                    <%= button_to "Add to Cart", cart_path(product_id: product.id, quantity: 1), method: :patch, class: "btn btn-success" %>
-                  <% end %>
+                  <%= render partial: 'shared/add_to_cart_button', locals: { product: product } %>
                 </div>
               </div>
             </div>
