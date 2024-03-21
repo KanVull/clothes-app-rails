@@ -14,25 +14,26 @@ FactoryBot.define do
   end
 
   factory :cart, class: Cart do
-    session_key { Faker::Alphanumeric.alphanumeric(number: 10) }\
+    session_key { Faker::Alphanumeric.alphanumeric(number: 10) }
   end
 
   factory :cart_product, class: CartProduct do
     quantity { Faker::Number.number(digits: 2) }
 
-    association :cart, factory: :cart
-    association :product, factory: :product
+    cart
+    product
   end
 
   factory :order, class: Order do
     email { Faker::Internet.email }
+    shipping_address { Faker::Address.full_address }
   end
 
   factory :order_product, class: OrderProduct do
     quantity { Faker::Number.number(digits: 2) }
     price_at_purchase { product.price }
 
-    association :cart, factory: :cart
-    association :product, factory: :product
+    cart
+    product
   end
 end
