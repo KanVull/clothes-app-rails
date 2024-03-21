@@ -39,7 +39,11 @@
                   <p class="card-text"><%= product.description %></p>
                 </div>
                 <div class="card-footer text-center">
-                  <%= button_to "Add to Cart", cart_path(product_id: product.id, quantity: 1), method: :patch, class: "btn btn-success" %>
+                  <% if Current.cart.present? && Current.cart.has_item?(product.id) %>
+                    <%= button_to "Remove from Cart", cart_path(product_id: product.id, quantity: 0), method: :patch, class: 'btn btn-outline-danger'%>
+                  <% else %>
+                    <%= button_to "Add to Cart", cart_path(product_id: product.id, quantity: 1), method: :patch, class: "btn btn-success" %>
+                  <% end %>
                 </div>
               </div>
             </div>

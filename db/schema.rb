@@ -34,7 +34,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_19_095034) do
     t.bigint "order_id", null: false
     t.bigint "product_id", null: false
     t.integer "quantity", default: 0, null: false
-    t.decimal "price_at_purchase", default: "0.0", null: false
+    t.decimal "price_at_purchase", precision: 12, scale: 2, default: "0.0", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["order_id"], name: "index_order_products_on_order_id"
@@ -42,11 +42,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_19_095034) do
   end
 
   create_table "orders", force: :cascade do |t|
-    t.string "session_key", null: false
     t.string "email", null: false
     t.string "shipping_address"
     t.string "status"
-    t.decimal "total_amount", precision: 12, scale: 2, default: "0.0", null: false
+    t.decimal "total_amount", precision: 15, scale: 2, default: "0.0", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

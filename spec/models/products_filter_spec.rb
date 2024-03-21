@@ -2,10 +2,10 @@ require 'rails_helper'
 
 RSpec.describe ProductsFilter, type: :model do
   describe "#filter" do
-    let!(:category) { create(:random_product_category) }
-    let(:product1) { create(:random_product, name: "Test Product 1", price: 50) }
-    let(:product2) { create(:random_product, name: "Test Product 2", price: 150) }
-    let(:product3) { create(:random_product, name: "Product 3", price: 200) }
+    let!(:category) { create(:product_category) }
+    let(:product1) { create(:product, name: "Test Product 1", price: 50) }
+    let(:product2) { create(:product, name: "Test Product 2", price: 150) }
+    let(:product3) { create(:product, name: "Product 3", price: 200) }
 
     it "filters products by query" do
       filter = ProductsFilter.new(query: "Test")

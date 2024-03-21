@@ -6,7 +6,7 @@ class AddOrderProducts < ActiveRecord::Migration[7.1]
       t.bigint :order_id, null: false
       t.bigint :product_id, null: false
       t.integer :quantity, default: 0, null: false
-      t.decimal :price_at_purchase, default: 0, null: false
+      t.decimal :price_at_purchase, precision: 12, scale: 2, default: 0, null: false
 
       t.timestamps
     end

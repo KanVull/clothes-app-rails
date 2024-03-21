@@ -1,0 +1,13 @@
+<div class="container">
+  <h1>Order: <%= @order.id %></h1>
+  <hr>
+  Email: <%= @order.email %>
+  Shipping address: <%= @order.shipping_address %>
+  <% if @order.items.any? %>
+    <%= render partial: 'shared/items_table', locals: { items: @order.items, total_amount: @order.total_amount } %>
+    <hr>
+    <%= button_to "Delete", admin_order_path(@order), method: :delete, data: { confirm: "Are you sure you want to delete this order?" }, class: "btn btn-danger" %>
+  <% else %>
+    <p>This order is empty.</p>
+  <% end %>
+</div>

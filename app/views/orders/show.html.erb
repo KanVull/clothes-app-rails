@@ -1,29 +1,8 @@
-Email: <%= @order.email %>
-  <table>
-    <thead>
-      <tr>
-        <th>Product Name</th>
-        <th>Price</th>
-        <th>Quantity</th>
-        <th>Total Price</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @order.order_products.each do |order_product| %>
-        <tr>
-          <td><%= order_product.product.name %></td>
-          <td><%= order_product.product.price %></td>
-          <td><%= order_product.quantity %></td>
-          <td><%= order_product.product.price * order_product.quantity %></td>
-        </tr>
-      <% end %>
-    </tbody>
-    <tfoot>
-      <tr>
-        <td colspan="3">Total:</td>
-        <td><%= @order.total_amount %></td>
-      </tr>
-    </tfoot>
-  </table>
+<div class="container">
+  Email: <%= @order.email %>
+  Shipping address: <%= @order.shipping_address %>
 
-Created: <%= @order.created_at %>
+  <%= render partial: 'shared/items_table', locals: { items: @order.items, total_amount: @order.total_amount } %>
+
+  Created: <%= @order.created_at %>
+</div>

@@ -11,10 +11,14 @@ class AdminController < ApplicationController
           link: admin_product_categories_path
         }
       ],
-      "Users": [
+      "Orders": [
         {
-          name: "Users (test) (link to products)",
-          link: admin_products_path
+          name: "Carts",
+          link: admin_carts_path
+        },
+        {
+          name: "Orders",
+          link: admin_orders_path
         }
       ]
     }

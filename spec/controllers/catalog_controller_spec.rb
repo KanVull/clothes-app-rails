@@ -8,7 +8,7 @@ RSpec.describe CatalogController, type: :controller do
     end
 
     it "assigns @products" do
-      products = create_list(:random_product, 4)
+      products = create_list(:product, 4)
       get :index
       expect(assigns(:products)).to eq(products[0..2])
     end
@@ -29,14 +29,14 @@ RSpec.describe CatalogController, type: :controller do
     end
 
     it "paginates products with 3 items per page" do
-      products = create_list(:random_product, 4)
+      products = create_list(:product, 4)
       get :index
       expect(assigns(:products).count).to eq(3)
     end
 
     it "filters products by query" do
-      product1 = create(:random_product, name: "Product 1")
-      product2 = create(:random_product, name: "Product 2")
+      product1 = create(:product, name: "Product 1")
+      product2 = create(:product, name: "Product 2")
 
       get :index, params: { product_filter: { query: "Product 1" } }
 
@@ -45,8 +45,8 @@ RSpec.describe CatalogController, type: :controller do
     end
 
     it "filters products by price range" do
-      product1 = create(:random_product, price: 10)
-      product2 = create(:random_product, price: 20)
+      product1 = create(:product, price: 10)
+      product2 = create(:product, price: 20)
 
       get :index, params: { product_filter: { min_price: 15, max_price: 25 } }
 
@@ -56,7 +56,7 @@ RSpec.describe CatalogController, type: :controller do
 
     context "when category_name is present and exists" do
       let(:filter_params) { { query: "test", min_price: 10, max_price: 100 } }
-      let!(:existing_category) { create(:random_product_category) }
+      let!(:existing_category) { create(:product_category) }
 
       before do
         get :index, params: { category_name: existing_category.name }
