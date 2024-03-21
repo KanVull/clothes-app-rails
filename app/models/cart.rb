@@ -11,7 +11,13 @@ class Cart < ApplicationRecord
   def update_item_quantity(product_id, quantity)
     item = items.find_or_initialize_by(product_id: product_id)
     item.quantity = quantity
-    item.quantity <= 0 ? item.destroy : item.save
+    if item.quantity <= 0
+      item.destroy
+    else
+      unless item.save
+        raise StandardError, "Failed to save item: #{item.errors.full_messages.join(', ')}"
+      end
+    end
   end
 
   def total_amount
