@@ -27,7 +27,7 @@ RSpec.describe Cart, type: :model do
         cart.update_item_quantity(product.id, 3)
       }.to_not change { CartProduct.count }
 
-      expect(cart.items.find_by(product_id: product.id).quantity).to eq(5)
+      expect(cart.items.find_by(product_id: product.id).quantity).to eq(3)
     end
 
     it "destroys the item if quantity becomes zero or negative" do

@@ -1,7 +1,7 @@
 <div class="container">
   <h1>Your Cart</h1>
 
-  <% if @cart.items.any? %>
+  <% if Current.cart.items.any? %>
     <table class="table table-hover">
       <thead class="thead-dark">
         <tr>
@@ -14,12 +14,12 @@
         </tr>
       </thead>
       <tbody>
-        <% @cart.items.each do |item| %>
+        <% Current.cart.items.each do |item| %>
           <tr>
             <td><%= item.product.name %></td>
             <td><%= item.product.price %></td>
             <td>
-              <%= form_tag(cart_path, method: :patch) do %>
+              <%= form_tag(cart_path, method: :patch, class: "d-inline") do %>
                 <%= hidden_field_tag :product_id, item.product_id %>
                 <%= number_field_tag "quantity", item.quantity, class: 'form-control', min: 1 %>
                 <%= button_tag "Update", type: "submit", class: "btn btn-info" %>
@@ -38,7 +38,7 @@
         <tr class="table-dark text-dark">
           <td>Total amount:</td>
           <td colspan="3"></td>
-          <td colspan="2"><%= @cart.total_amount %></td>
+          <td colspan="2"><%= Current.cart.total_amount %></td>
         </tr>
       </tfoot>
     </table>
