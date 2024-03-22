@@ -17,9 +17,8 @@ module Admin
     end
 
     def create
-      params = product_category_params
-      params[:name] = params[:shown_name].parameterize
-      @product_category = ProductCategory.new(params)
+      @product_category = ProductCategory.new(product_category_params)
+
       if @product_category.save
         redirect_to admin_product_categories_path, notice: "Product category was successfully created."
       else
@@ -36,9 +35,7 @@ module Admin
     def update
       @product_category = ProductCategory.find(params[:id])
 
-      params = product_category_params
-      params[:name] = params[:shown_name].parameterize
-      if @product_category.update(params)
+      if @product_category.update(product_category_params)
         redirect_to admin_product_categories_path(@product_category), notice: "Product category was successfully updated."
       else
         flash.now[:warning] = "Product category wasn't updated!"
