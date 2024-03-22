@@ -26,6 +26,7 @@ class OrdersController < BaseController
 
   def show
     @order = Order.find(params[:id])
+    render layout: "order"
   end
 
   private
