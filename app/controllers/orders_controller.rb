@@ -8,7 +8,7 @@ class OrdersController < BaseController
   end
 
   def create
-    if Current.cart
+    if Current.cart.items_count >= 1
       @order = Order.create_from_cart(Current.cart)
       @order.assign_attributes(order_params)
 
@@ -25,7 +25,7 @@ class OrdersController < BaseController
   end
 
   def show
-    @order = Order.find(params[:id])
+    @order = Order.find_by!(uuid: params[:uuid])
     render layout: "order"
   end
 

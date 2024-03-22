@@ -4,6 +4,7 @@
   <thead class="thead-dark">
     <tr>
       <th scope="col">#</th>
+      <th scope="col">UUID</th>
       <th scope="col">Email</th>
       <th scope="col">Shipping address</th>
       <th scope="col">Total amount</th>
@@ -15,6 +16,7 @@
     <% @orders.each do |o| %>
       <tr>
         <th scope="row"><%= o.id %></th>
+        <td><%= o.uuid %></td>
         <td><%= o.email %></td>
         <td><%= o.shipping_address %></td>
         <td><%= o.total_amount %></td>

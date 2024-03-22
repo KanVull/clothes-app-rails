@@ -5,7 +5,9 @@ Rails.application.routes.draw do
   resources :products, only: %i[show]
 
   resource :cart, only: %i[show update]
-  resources :orders
+
+  resources :orders, only: %i[new create]
+  get "/orders/:uuid", to: "orders#show", as: "order_by_uuid"
 
   namespace "admin" do
     get "/", to: "admin#index"

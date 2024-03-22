@@ -32,23 +32,25 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_22_085605) do
   end
 
   create_table "order_products", force: :cascade do |t|
+    t.bigint "order_id", null: false
     t.bigint "product_id", null: false
     t.integer "quantity", default: 0, null: false
     t.decimal "price_at_purchase", precision: 12, scale: 2, default: "0.0", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.uuid "order_id"
+    t.index ["order_id"], name: "index_order_products_on_order_id"
     t.index ["product_id"], name: "index_order_products_on_product_id"
   end
 
-  create_table "orders", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.bigint "integer_id"
+  create_table "orders", force: :cascade do |t|
     t.string "email", null: false
     t.string "shipping_address"
     t.string "status"
     t.decimal "total_amount", precision: 15, scale: 2, default: "0.0", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.uuid "uuid", default: -> { "gen_random_uuid()" }, null: false
+    t.index ["uuid"], name: "index_orders_on_uuid", unique: true
   end
 
   create_table "product_categories", force: :cascade do |t|
@@ -76,7 +78,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_22_085605) do
 
   add_foreign_key "cart_products", "carts"
   add_foreign_key "cart_products", "products"
-  add_foreign_key "order_products", "orders", on_delete: :cascade
+  add_foreign_key "order_products", "orders"
   add_foreign_key "order_products", "products"
   add_foreign_key "products", "product_categories"
 end
