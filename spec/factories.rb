@@ -9,7 +9,6 @@ FactoryBot.define do
   end
 
   factory :product_category, class: ProductCategory do
-    name { "#{Faker::Commerce.material}_#{Faker::Number.number(digits: 5)}" }
     shown_name { "#{Faker::Commerce.material}_#{Faker::Number.number(digits: 5)}" }
   end
 
