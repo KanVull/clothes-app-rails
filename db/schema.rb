@@ -10,8 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_03_19_095034) do
+ActiveRecord::Schema[7.1].define(version: 2024_03_22_085605) do
   # These are extensions that must be enabled in order to support this database
+  enable_extension "pgcrypto"
   enable_extension "plpgsql"
 
   create_table "cart_products", force: :cascade do |t|
@@ -31,17 +32,17 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_19_095034) do
   end
 
   create_table "order_products", force: :cascade do |t|
-    t.bigint "order_id", null: false
     t.bigint "product_id", null: false
     t.integer "quantity", default: 0, null: false
     t.decimal "price_at_purchase", precision: 12, scale: 2, default: "0.0", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["order_id"], name: "index_order_products_on_order_id"
+    t.uuid "order_id"
     t.index ["product_id"], name: "index_order_products_on_product_id"
   end
 
-  create_table "orders", force: :cascade do |t|
+  create_table "orders", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.bigint "integer_id"
     t.string "email", null: false
     t.string "shipping_address"
     t.string "status"
@@ -75,7 +76,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_19_095034) do
 
   add_foreign_key "cart_products", "carts"
   add_foreign_key "cart_products", "products"
-  add_foreign_key "order_products", "orders"
+  add_foreign_key "order_products", "orders", on_delete: :cascade
   add_foreign_key "order_products", "products"
   add_foreign_key "products", "product_categories"
 end
