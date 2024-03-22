@@ -1,4 +1,4 @@
-class OrdersController < ApplicationController
+class OrdersController < BaseController
   def new
     if Current.cart.nil? || Current.cart.items.empty?
       redirect_to catalog_path, notice: "Your cart is empty. Please add items before placing an order."

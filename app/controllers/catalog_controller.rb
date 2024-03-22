@@ -1,6 +1,6 @@
 require_relative "../services/products_filter.rb"
 
-class CatalogController < ApplicationController
+class CatalogController < BaseController
   include Pagy::Backend
 
   def index
