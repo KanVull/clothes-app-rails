@@ -5,6 +5,7 @@ class Product < ApplicationRecord
 
   validates :name, :price, :quantity, :product_category_id, presence: true
   validates :price, :quantity, numericality: { greater_than_or_equal_to: 0 }
+  validates :name, uniqueness: true
 
   scope :published, -> { where("published_at <= ?", Time.zone.now) }
   scope :in_category, ->(category_name) { where(product_category_id: ProductCategory.where(name: category_name)) }

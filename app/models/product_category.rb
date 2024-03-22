@@ -1,5 +1,7 @@
 class ProductCategory < ApplicationRecord
   has_many :products, dependent: :destroy
+  validates :name, :shown_name, presence: true
+  validates :name, :shown_name, uniqueness: true
 
   scope :with_published_products, -> { joins(:products).merge(Product.published).distinct }
 
