@@ -14,8 +14,8 @@ class OrdersController < ApplicationController
 
       if @order.save
         Current.cart.destroy
-        redirect_to order_path(@order), notice: "Order placed successfully!"
-        send_order(@order.email, order_url(@order))
+        OrdersMailer.order_created(@order).deliver_now
+        redirect_to catalog_path, notice: "Order placed successfully! You can check your email for order information!"
       else
         render :new
       end
@@ -29,10 +29,6 @@ class OrdersController < ApplicationController
   end
 
   private
-
-  def send_order(email, link)
-    OrderCreationMailer.send_order_link_to(email, link).deliver_now
-  end
 
   def order_params
     params.require(:order).permit(:email)
