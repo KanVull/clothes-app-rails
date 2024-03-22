@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   resource :cart, only: %i[show update]
   resources :orders
 
-  namespace "admin", path: "admin" do
+  namespace "admin" do
     get "/", to: "admin#index"
     resources :products
     resources :product_categories
