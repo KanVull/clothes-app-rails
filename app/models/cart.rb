@@ -12,11 +12,9 @@ class Cart < ApplicationRecord
     item = items.find_or_initialize_by(product_id: product_id)
     item.quantity = quantity
     if item.quantity <= 0
-      if !item.destroy
-        raise "Failed to destroy item: #{item.errors.full_messages.join(', ')}"
-      end
-    elsif !item.save
-      raise "Failed to save item: #{item.errors.full_messages.join(', ')}"
+      item.destroy!
+    else
+      item.save!
     end
   end
 
