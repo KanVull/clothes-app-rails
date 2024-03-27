@@ -48,7 +48,7 @@ group :development do
   gem "letter_opener"
   gem "rubocop-rails-omakase", require: false
   gem "rubocop-rspec", "~> 2.26"
-  gem "web-console"  
+  gem "web-console"
 end
 
 group :test do
@@ -68,4 +68,3 @@ end
 
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
-
