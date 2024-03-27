@@ -47,15 +47,15 @@ end
 group :development do
   gem "letter_opener"
   gem "rubocop-rails-omakase", require: false
-  gem "rubocop-rspec"
+  gem "rubocop-rspec", "~> 2.26"
   gem "web-console"  
 end
 
 group :test do
   gem "capybara"
-  gem "faker"
-  gem "factory_bot_rails"
-  gem "rails-controller-testing"
+  gem "faker", "~> 3.2"
+  gem "factory_bot_rails", "~> 6.4"
+  gem "rails-controller-testing", "~> 1.0"
   gem "rspec-rails"
   gem "selenium-webdriver"
 end
@@ -68,3 +68,4 @@ end
 
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
+
