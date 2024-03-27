@@ -1,0 +1,13 @@
+<%= form_for filter, url: request.path, method: :get do |form| %>
+  <%= form.label :query, "Search:" %>
+  <%= form.text_field :query, placeholder: "Search products..." %>
+
+  <%= form.label :min_price, "Min Price:" %>
+  <%= form.number_field :min_price %>
+
+  <%= form.label :max_price, "Max Price:" %>
+  <%= form.number_field :max_price %>
+
+  <%= form.submit "Filter" %>
+<% end %>
+<%= link_to "Reset filtering", catalog_path, class: "list-group-item" %>

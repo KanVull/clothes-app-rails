@@ -1,0 +1,17 @@
+<div class="col-lg-4 col-md-6 mb-4">
+  <div class="card h-100">
+    <!-- <a href="#">
+      <img class="card-img-top" src="vendor/img/products/Adidas-hoodie.png" alt="">
+    </a> -->
+    <div class="card-body">
+      <h4 class="card-title">
+        <%= link_to product.name, product %>
+      </h4>
+      <h5><%= product.price %></h5>
+      <p class="card-text"><%= product.description %></p>
+    </div>
+    <div class="card-footer text-center">
+      <%= render partial: 'shared/add_to_cart_button', locals: { product: product } %>
+    </div>
+  </div>
+</div>
