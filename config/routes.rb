@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
 
-  get "/catalog(/:category_name)", to: "catalog#index", as: "catalog"
+  get "/catalog(/:category_slug)", to: "catalog#index", as: "catalog"
   resources :products, only: %i[show]
 
   resource :cart, only: %i[show update]

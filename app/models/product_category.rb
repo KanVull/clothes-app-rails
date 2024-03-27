@@ -1,10 +1,9 @@
 class ProductCategory < ApplicationRecord
   has_many :products, dependent: :destroy
 
-  before_validation :parameterize_name
+  before_validation :set_slug
 
-  validates :name, :shown_name, presence: true
-  validates :name, :shown_name, uniqueness: true
+  validates :slug, presence: true, uniqueness: true
 
   scope :with_published_products, -> { joins(:products).merge(Product.published).distinct }
 
@@ -15,7 +14,7 @@ class ProductCategory < ApplicationRecord
 
   private
 
-  def parameterize_name
-    self.name = shown_name.present? ? shown_name.parameterize : nil
+  def set_slug
+    self.slug = name&.parameterize.presence
   end
 end
