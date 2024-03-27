@@ -3,8 +3,10 @@ class Product < ApplicationRecord
   has_many :cart_products, dependent: :destroy
   has_many :order_products
 
-  validates :name, :price, :quantity, :product_category_id, presence: true
-  validates :price, :quantity, numericality: { greater_than_or_equal_to: 0 }
+  validates :name, presence: true, uniqueness: true
+  validates :price, presence: true, numericality: { greater_than_or_equal_to: 0 }
+  validates :quantity, presence: true, numericality: { greater_than_or_equal_to: 0 }
+  validates :product_category_id, presence: true
 
   scope :published, -> { where("published_at <= ?", Time.zone.now) }
   scope :in_category, ->(category_name) { where(product_category_id: ProductCategory.where(name: category_name)) }

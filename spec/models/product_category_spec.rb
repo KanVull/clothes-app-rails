@@ -1,4 +1,28 @@
 RSpec.describe ProductCategory, type: :model do
+  describe 'validations' do
+    let(:product_category) { build_stubbed(:product_category) }
+
+    it 'is valid with valid attributes' do
+      expect(product_category).to be_valid
+    end
+
+    it 'is valid without a slug, slug set from name' do
+      product_category.slug = nil
+      expect(product_category).to be_valid
+    end
+
+    it 'is not valid without a slug' do
+      product_category.name = nil
+      expect(product_category).not_to be_valid
+    end
+
+    it 'is not valid with a duplicate slug' do
+      existing_category = create(:product_category)
+      product_category.name = existing_category.name
+      expect(product_category).not_to be_valid
+    end
+  end
+
   describe ".with_published_products" do
     let!(:category1) { create(:product_category) }
     let!(:category2) { create(:product_category) }

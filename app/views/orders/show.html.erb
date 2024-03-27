@@ -1,8 +1,11 @@
 <div class="container">
-  Email: <%= @order.email %>
-  Shipping address: <%= @order.shipping_address %>
+  <p>Order number: <%= @order.id %></p>
+  <p>Email: <%= @order.email %></p>
+  <p>Shipping address: <%= @order.shipping_address.presence || "Not set" %></p>
 
   <%= render partial: 'shared/items_table', locals: { items: @order.items, total_amount: @order.total_amount } %>
 
-  Created: <%= @order.created_at %>
+  <p>Created: <%= @order.created_at %></p>
+
+  <h4 class="text-center pt-3"><%= link_to "Continue with Store", catalog_path, class: "btn btn-outline-success" %></h4>
 </div>

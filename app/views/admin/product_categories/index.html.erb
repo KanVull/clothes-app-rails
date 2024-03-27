@@ -5,8 +5,8 @@
   <thead class="thead-dark">
     <tr>
       <th scope="col">#</th>
+      <th scope="col">Slug</th>
       <th scope="col">Name</th>
-      <th scope="col">Shown name</th>
       <th scope="col">Commands</th>
     </tr>
   </thead>
@@ -14,8 +14,8 @@
     <% @product_categories.each do |c| %>
       <tr>
         <th scope="row"><%= c.id %></th>
+        <td><%= c.slug %></td>
         <td><%= c.name %></td>
-        <td><%= c.shown_name %></td>
         <td>
           <%= link_to "View", admin_product_category_path(c), class: "btn btn-info"%>
           <%= link_to "Edit", edit_admin_product_category_path(c), class: "btn btn-secondary" %> 

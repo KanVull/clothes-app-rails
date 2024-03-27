@@ -30,10 +30,10 @@ RSpec.describe Cart, type: :model do
       expect(cart.items.find_by(product_id: product.id).quantity).to eq(3)
     end
 
-    it "destroys the item if quantity becomes zero or negative" do
+    it "destroys the item if quantity becomes zero" do
       cart.update_item_quantity(product.id, 2)
       expect {
-        cart.update_item_quantity(product.id, -2)
+        cart.update_item_quantity(product.id, 0)
       }.to change { CartProduct.count }.by(-1)
 
       expect(cart.items.find_by(product_id: product.id)).to be_nil

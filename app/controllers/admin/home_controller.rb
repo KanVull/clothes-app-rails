@@ -1,5 +1,5 @@
-class AdminController < ApplicationController
-  def dashboard
+class Admin::HomeController < Admin::BaseController
+  def index
     @links = {
       "Products": [
         {
@@ -22,6 +22,5 @@ class AdminController < ApplicationController
         }
       ]
     }
-    render "dashboard"
   end
 end

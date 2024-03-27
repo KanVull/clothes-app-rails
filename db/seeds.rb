@@ -10,35 +10,35 @@
 
 categories = [
   {
-    name: "shoes",
-    shown_name: "Shoes",
+    slug: "shoes",
+    name: "Shoes",
     descriprion: "This is fun!"
   },
   {
-    name: "pants",
-    shown_name: "Pants",
+    slug: "pants",
+    name: "Pants",
     descriprion: "This is fun!"
   },
   {
-    name: "shirts",
-    shown_name: "Shirts",
+    slug: "shirts",
+    name: "Shirts",
     descriprion: "This is fun!"
   },
   {
-    name: "jackets",
-    shown_name: "Jackets",
+    slug: "jackets",
+    name: "Jackets",
     descriprion: "This is fun!"
   },
   {
-    name: "back-bags",
-    shown_name: "Back bags",
+    slug: "back-bags",
+    name: "Back bags",
     descriprion: "This is fun!"
   }
 ]
 categories.each do |category|
   ProductCategory.create!(
+    slug: category[:slug],
     name: category[:name],
-    shown_name: category[:shown_name],
     description: category[:description]
   )
 end

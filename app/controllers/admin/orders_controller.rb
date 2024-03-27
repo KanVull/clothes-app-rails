@@ -1,8 +1,7 @@
-class Admin::OrdersController < ApplicationController
+class Admin::OrdersController < Admin::BaseController
   def index
     @title = "Admin - Orders"
     @orders = Order.all
-    render "index"
   end
 
   def show

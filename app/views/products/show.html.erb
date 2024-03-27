@@ -1,0 +1,9 @@
+<div class="container">
+  <%# @product.image TODO %>
+  
+  <h1><%= @product.name %></h1>
+  <%= @product.description %>
+  For: <%= @product.price %>
+
+  <%= render partial: 'shared/add_to_cart_button', locals: { product: @product } %>
+</div>

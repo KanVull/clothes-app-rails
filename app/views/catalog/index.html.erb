@@ -4,53 +4,14 @@
       Select category
       <div class="list-group">
         <% @product_categories.each do |category| %>
-          <%= link_to category.shown_name, catalog_path(category_name: category.name), class: "list-group-item"  %>
+          <%= link_to category.name, catalog_path(category_slug: category.slug), class: "list-group-item"  %>
         <% end %>  
       </div>
-      <%= form_for @filter, url: request.path, method: :get do |form| %>
-        <%= form.label :query, "Search:" %>
-        <%= form.text_field :query, placeholder: "Search products..." %>
-
-        <%= form.label :min_price, "Min Price:" %>
-        <%= form.number_field :min_price %>
-
-        <%= form.label :max_price, "Max Price:" %>
-        <%= form.number_field :max_price %>
-
-        <%= form.submit "Filter" %>
-      <% end %>
-      <%= link_to "Reset filtering", catalog_path, class: "list-group-item" %>
-
+      <%= render "filter_form", filter: @filter %>
     </div>
     <div class="col-lg-9">
       <div class="row mt-5 mx-4">
-        <% if @products.present? %>
-          <% @products.each do |product| %>
-            <div class="col-lg-4 col-md-6 mb-4">
-              <div class="card h-100">
-                <!-- <a href="#">
-                  <img class="card-img-top" src="vendor/img/products/Adidas-hoodie.png" alt="">
-                </a> -->
-                <div class="card-body">
-                  <h4 class="card-title">
-                    <a href="#"><%= product.name %></a>
-                  </h4>
-                  <h5><%= product.price %></h5>
-                  <p class="card-text"><%= product.description %></p>
-                </div>
-                <div class="card-footer text-center">
-                  <% if Current.cart.present? && Current.cart.has_item?(product.id) %>
-                    <%= button_to "Remove from Cart", cart_path(product_id: product.id, quantity: 0), method: :patch, class: 'btn btn-outline-danger'%>
-                  <% else %>
-                    <%= button_to "Add to Cart", cart_path(product_id: product.id, quantity: 1), method: :patch, class: "btn btn-success" %>
-                  <% end %>
-                </div>
-              </div>
-            </div>
-          <% end %>
-        <% else %>
-          No products
-        <% end %>  
+        <%= render(partial: "product_card", collection: @products, as: "product") || "No products" %>
       </div>
 
       <!-- Pagination links -->

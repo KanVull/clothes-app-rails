@@ -1,8 +1,7 @@
-class Admin::CartsController < ApplicationController
+class Admin::CartsController < Admin::BaseController
   def index
     @title = "Admin - Carts"
     @carts = Cart.all
-    render "index"
   end
 
   def show

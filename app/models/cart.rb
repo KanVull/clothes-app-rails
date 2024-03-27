@@ -11,12 +11,10 @@ class Cart < ApplicationRecord
   def update_item_quantity(product_id, quantity)
     item = items.find_or_initialize_by(product_id: product_id)
     item.quantity = quantity
-    if item.quantity <= 0
-      if !item.destroy
-        raise "Failed to destroy item: #{item.errors.full_messages.join(', ')}"
-      end
-    elsif !item.save
-      raise "Failed to save item: #{item.errors.full_messages.join(', ')}"
+    if item.quantity.zero?
+      item.destroy!
+    else
+      item.save!
     end
   end
 
@@ -26,9 +24,5 @@ class Cart < ApplicationRecord
 
   def has_item?(product_id)
     items.find_by(product_id: product_id).present?
-  end
-
-  def items_count
-    items.count
   end
 end
