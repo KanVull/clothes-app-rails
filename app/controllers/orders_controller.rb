@@ -8,19 +8,20 @@ class OrdersController < BaseController
   end
 
   def create
-    if Current.cart.items_count >= 1
-      @order = Order.create_from_cart(Current.cart)
-      @order.assign_attributes(order_params)
-
-      if @order.save
-        Current.cart.destroy
-        OrdersMailer.order_created(@order).deliver_now
-        redirect_to catalog_path, notice: "Order placed successfully! You can check your email for order information!"
-      else
-        render :new
-      end
-    else
+    if Current.cart.items.empty?
       redirect_to root_path, alert: "Cart is empty!"
+      return
+    end
+
+    @order = Order.create_from_cart(Current.cart)
+    @order.assign_attributes(order_params)
+
+    if @order.save
+      Current.cart.destroy
+      OrdersMailer.order_created(@order).deliver_now
+      redirect_to catalog_path, notice: "Order placed successfully! You can check your email for order information!"
+    else
+      render :new
     end
   end
 

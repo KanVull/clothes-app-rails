@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   get "/orders/:uuid", to: "orders#show", as: "order_by_uuid"
 
   namespace "admin" do
-    get "/", to: "admin#index"
+    get "/", to: "home#index"
     resources :products
     resources :product_categories
     resources :carts, only: %i[index show destroy]

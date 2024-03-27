@@ -1,5 +1,3 @@
-require_relative "../services/products_filter.rb"
-
 class CatalogController < BaseController
   include Pagy::Backend
 
@@ -16,7 +14,6 @@ class CatalogController < BaseController
     @filter = ProductsFilter.new(@f_params)
     @products = @filter.filter(Product.all)
     show_products_categories
-    render "index"
   end
 
   private
