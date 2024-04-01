@@ -29,6 +29,10 @@ jobs:
         with:
           bundler-cache: true
 
+      - name: Set credentials
+        env:
+          RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
+
       - name: Database setup and Rspec tests
         env:
           PG_DATABASE: clothes_app_test
