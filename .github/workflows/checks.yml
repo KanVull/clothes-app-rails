@@ -29,10 +29,6 @@ jobs:
         with:
           bundler-cache: true
 
-      - name: Set credentials
-        env:
-          RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
-
       - name: Database setup and Rspec tests
         env:
           PG_DATABASE: clothes_app_test
@@ -40,6 +36,7 @@ jobs:
           PG_USER: postgres
           PG_PASSWORD: password
           RAILS_ENV: test
+          RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
         run: |
           bundle exec bin/rails db:create db:schema:load
           bundle exec rspec

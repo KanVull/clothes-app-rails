@@ -1,4 +1,4 @@
-<div class="align-items-center">
+<div class="align-items-center justify-content-center text-white">
   <% if user.present? %>
     <%= user.email %>
     <%= button_to "Logout", session_path, method: :delete,
