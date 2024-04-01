@@ -1,0 +1,9 @@
+<div class="align-items-center">
+  <% if user.present? %>
+    <%= user.email %>
+    <%= button_to "Logout", session_path, method: :delete,
+        form_class: "d-inline ml-2", class: "btn btn-outline-danger" %>
+  <% else %>
+    <%= link_to "Sign In", new_session_path, class: "nav-item nav-link" %>
+  <% end %>
+</div>
