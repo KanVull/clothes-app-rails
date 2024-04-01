@@ -6,10 +6,8 @@ class SessionsController < ApplicationController
     user = User.find_by!(email: params[:email])
 
     if user&.authenticate(params[:password])
-      payload = { user_id: user.id }
-      token = JwtService.encode(payload)
-      cookies.signed[:token] = {
-        value: token,
+      cookies.signed[:user_id] = {
+        value: user.id,
         expires: 7.days.from_now,
         httponly: true
       }
@@ -21,7 +19,7 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    cookies.delete :token
+    cookies.delete :user_id
     redirect_to catalog_url, notice: "Logged out successfully!"
   end
 end
