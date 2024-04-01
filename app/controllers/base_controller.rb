@@ -6,7 +6,7 @@ class BaseController < ApplicationController
 
   def set_user
     if cookies.signed["user_id"].present?
-      Current.user = User.find_by!(id: cookies.signed[:user_id])
+      Current.user = User.find(cookies.signed[:user_id])
     end
   end
 
