@@ -1,0 +1,32 @@
+<h1>Users</h1>
+
+<table class="table table-hover">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Email</th>
+      <th scope="col">Admin</th>
+      <th scope="col">Created at</th>
+      <th scope="col">Updated at</th>
+      <th scope="col">Commands</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |u| %>
+      <tr>
+        <th scope="row"><%= u.id %></th>
+        <td><%= u.email %></td>
+        <td><%= u.admin? %></td>
+        <td><%= u.created_at %></td>
+        <td><%= u.updated_at %></td>
+        <td>
+          <%= link_to "View", admin_user_path(u), class: "btn btn-info"%>
+          <%= link_to "Edit", edit_admin_user_path(u), class: "btn btn-secondary" %> 
+          <%= button_to "Delete", admin_user_path(u), method: :delete, 
+              data: { confirm: "Are you sure you want to delete this user?" }, 
+              form_class: "d-inline", class: "btn btn-danger" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

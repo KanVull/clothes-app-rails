@@ -20,6 +20,12 @@ class Admin::HomeController < Admin::BaseController
           name: "Orders",
           link: admin_orders_path
         }
+      ],
+      "Users": [
+        {
+          name: "Users",
+          link: admin_users_path
+        }
       ]
     }
   end
