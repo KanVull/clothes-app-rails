@@ -4,6 +4,11 @@ Rails.application.routes.draw do
   get "/catalog(/:category_slug)", to: "catalog#index", as: "catalog"
   resources :products, only: %i[show]
 
+  resources :users, only: %i[new create]
+  resources :sessions, only: %i[new create]
+  resource :session, to: "sessions#destroy", only: %i[destroy], defaults: { id: nil }
+
+
   resource :cart, only: %i[show update]
 
   resources :orders, only: %i[new create]
@@ -15,6 +20,7 @@ Rails.application.routes.draw do
     resources :product_categories
     resources :carts, only: %i[index show destroy]
     resources :orders, only: %i[index show destroy]
+    resources :users, only: %i[index show edit update destroy]
   end
 
   match "*unmatched", to: "application#render_404", via: :all

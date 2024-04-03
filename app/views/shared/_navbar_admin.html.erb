@@ -1,7 +1,10 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-  <div class="container">
-    <%= link_to "Admin", admin_path, class: 'navbar-brand'%>
+  <div class="container text-white">
     <%= link_to "Store", catalog_path, class: 'navbar-brand'%>
+    <%= link_to "Admin", admin_path, class: 'nav-link text-white'%>
+    <div class="navbar-nav ml-auto">
+      <%= render partial: "shared/profile_navbar", locals: { user: Current.user } %>
+    </div>
   </div>
 </nav>
 <div class='mb-5'></div>

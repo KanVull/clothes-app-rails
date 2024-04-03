@@ -14,6 +14,9 @@ gem "importmap-rails"
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
 
+# Use JWT class to implement jwt token encoding/decoding
+gem "jwt", "~> 2.8"
+
 # Implement padination
 gem "pagy", "~> 7.0"
 
