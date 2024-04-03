@@ -3,7 +3,7 @@
     <%= link_to "Store", catalog_path, class: 'navbar-brand'%>
     <%= link_to "Admin", admin_path, class: 'nav-link text-white'%>
     <div class="navbar-nav ml-auto">
-      <%= render partial: "shared/profile_navbar", locals: { user: Current.user } %>
+      <%= render partial: "shared/profile_navbar", locals: { user: current_user } %>
     </div>
   </div>
 </nav>

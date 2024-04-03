@@ -3,20 +3,20 @@ class ApplicationController < ActionController::Base
   rescue_from ActiveRecord::RecordNotFound, with: :render_404
   rescue_from ActionController::RoutingError, with: :render_404
 
-  before_action :set_current_user
+  protected
 
   def render_404
     render file: "#{Rails.root}/public/404.html",  status: 404
   end
 
   def require_user!
-    unless Current.user
+    unless current_user
       redirect_to new_session_path, alert: "Please sign in to get access to this page!"
     end
   end
 
-  def set_current_user
-    return if Current.user
+  def current_user
+    return Current.user if Current.user
 
     Current.user = if cookies.signed["user_id"].present?
       find_user_from_cookies
@@ -24,10 +24,11 @@ class ApplicationController < ActionController::Base
       find_user_from_jwt_token
     end
   end
+  helper_method :current_user
 
   def find_user_from_cookies
     User.find(cookies.signed["user_id"])
-  rescue => e
+  rescue => _e
     nil
   end
 
@@ -37,7 +38,7 @@ class ApplicationController < ActionController::Base
     user_id = payload.dig(0, "user_id")
 
     User.find(user_id)
-  rescue => e
+  rescue => _e
     nil
   end
 
