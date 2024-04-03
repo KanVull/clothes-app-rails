@@ -1,4 +1,6 @@
 class Admin::ProductCategoriesController < Admin::BaseController
+  before_action :set_product_category, only: %i[show edit update destroy]
+
   def index
     @title = "Admin - Product Categories"
     @product_categories = ProductCategory.all
@@ -6,7 +8,6 @@ class Admin::ProductCategoriesController < Admin::BaseController
 
   def show
     @title = "Admin - Product Category: #{params[:id]}"
-    @product_category = ProductCategory.find(params[:id])
   end
 
   def new
@@ -27,12 +28,9 @@ class Admin::ProductCategoriesController < Admin::BaseController
 
   def edit
     @title = "Admin - Product Category: #{params[:id]}"
-    @product_category = ProductCategory.find(params[:id])
   end
 
   def update
-    @product_category = ProductCategory.find(params[:id])
-
     if @product_category.update(product_category_params)
       redirect_to admin_product_categories_path(@product_category), notice: "Product category was successfully updated."
     else
@@ -42,7 +40,6 @@ class Admin::ProductCategoriesController < Admin::BaseController
   end
 
   def destroy
-    @product_category = ProductCategory.find(params[:id])
     @product_category.destroy
     redirect_to admin_product_categories_path, notice: "Product category was successfully deleted."
   end
@@ -51,5 +48,9 @@ class Admin::ProductCategoriesController < Admin::BaseController
 
   def product_category_params
     params.require(:product_category).permit(:shown_name, :description)
+  end
+
+  def set_product_category
+    @product_category = ProductCategory.find(params[:id])
   end
 end

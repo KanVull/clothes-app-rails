@@ -1,4 +1,6 @@
 class Admin::ProductsController < Admin::BaseController
+  before_action :set_product, only: %i[show edit update destroy]
+
   def index
     @title = "Admin - Products"
     @products = Product.all
@@ -6,7 +8,6 @@ class Admin::ProductsController < Admin::BaseController
 
   def show
     @title = "Admin - Product:#{params[:id]}"
-    @product = Product.find(params[:id])
   end
 
   def new
@@ -27,12 +28,9 @@ class Admin::ProductsController < Admin::BaseController
 
   def edit
     @title = "Admin - Product:#{params[:id]}"
-    @product = Product.find(params[:id])
   end
 
   def update
-    @product = Product.find(params[:id])
-
     if @product.update(product_params)
       redirect_to admin_product_path(@product), notice: "Product was successfully updated."
     else
@@ -42,7 +40,6 @@ class Admin::ProductsController < Admin::BaseController
   end
 
   def destroy
-    @product = Product.find(params[:id])
     @product.destroy
     redirect_to admin_products_path, notice: "Product was successfully deleted."
   end
@@ -59,5 +56,9 @@ class Admin::ProductsController < Admin::BaseController
       :product_category_id,
       :published_at
     )
+  end
+
+  def set_product
+    @product = Product.find(params[:id])
   end
 end

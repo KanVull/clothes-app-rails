@@ -4,7 +4,7 @@
     <%= link_to "Admin", admin_path, class: 'nav-link text-white'%>
     <div class="navbar-nav ml-auto">
       <%= link_to "(#{ Current.cart&.items&.count }) Cart", cart_path, class: 'nav-item nav-link' %>
-      <%= render partial: "shared/profile_navbar", locals: { user: Current.user } %>
+      <%= render partial: "shared/profile_navbar", locals: { user: current_user } %>
     </div>
   </div>
 </nav>
