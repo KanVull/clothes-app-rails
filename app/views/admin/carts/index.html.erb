@@ -4,6 +4,7 @@
   <thead class="thead-dark">
     <tr>
       <th scope="col">#</th>
+      <th scope="col">User_id</th>
       <th scope="col">Session ID</th>
       <th scope="col">Created at</th>
       <th scope="col">Last update</th>
@@ -14,7 +15,8 @@
     <% @carts.each do |c| %>
       <tr>
         <th scope="row"><%= c.id %></th>
-        <td><%= c.session_key %></td>
+        <td><%= c.user_id.presence || "session's cart" %></td>
+        <td><%= c.session_key.presence || "user's cart" %></td>
         <td><%= c.created_at %></td>
         <td><%= c.updated_at %></td>
         <td>

@@ -26,4 +26,21 @@ class Cart < ApplicationRecord
   def has_item?(product_id)
     items.find_by(product_id: product_id).present?
   end
+
+  def merge!(cart2)
+    product_quantities = cart2.items.pluck(:product_id, :quantity).to_h
+    existing_items = items.where(product_id: product_quantities.keys)
+
+    existing_items.each do |existing_item|
+      existing_item.update(quantity: existing_item.quantity + product_quantities[existing_item.product_id])
+      product_quantities.delete(existing_item.product_id)
+    end
+
+    cart2.items.where(product_id: product_quantities.keys).update(cart_id: id)
+
+    transaction do
+      save!
+      cart2.destroy!
+    end
+  end
 end
