@@ -1,4 +1,4 @@
-class CatalogController < BaseController
+class CatalogController < ApplicationController
   include Pagy::Backend
 
   def index

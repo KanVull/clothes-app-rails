@@ -1,7 +1,7 @@
 <div class="container">
   <h1>Your Cart</h1>
 
-  <% if Current.cart.items.any? %>
+  <% if current_cart.items.any? %>
     <table class="table table-hover">
       <thead class="thead-dark">
         <tr>
@@ -14,7 +14,7 @@
         </tr>
       </thead>
       <tbody>
-        <% Current.cart.items.each do |item| %>
+        <% current_cart.items.each do |item| %>
           <tr>
             <td><%= item.product.name %></td>
             <td><%= item.product.price %></td>

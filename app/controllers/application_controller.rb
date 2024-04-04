@@ -3,11 +3,11 @@ class ApplicationController < ActionController::Base
   rescue_from ActiveRecord::RecordNotFound, with: :render_404
   rescue_from ActionController::RoutingError, with: :render_404
 
-  protected
-
   def render_404
     render file: "#{Rails.root}/public/404.html",  status: 404
   end
+
+  protected
 
   def require_user!
     unless current_user
@@ -41,6 +41,22 @@ class ApplicationController < ActionController::Base
   rescue => _e
     nil
   end
+
+  def current_cart
+    return Current.cart if Current.cart
+
+    if user = current_user
+      Current.cart = Cart.find_or_create_by(user_id: user.id)
+      if cart2 = Cart.find_by(session_key: session.id.to_s)
+        Current.cart.merge!(cart2)
+      end
+    else
+      Current.cart = Cart.find_or_create_by(session_key: session.id.to_s)
+    end
+
+    Current.cart
+  end
+  helper_method :current_cart
 
   private
 
