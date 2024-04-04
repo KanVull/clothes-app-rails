@@ -20,7 +20,9 @@ Rails.application.routes.draw do
     resources :product_categories
     resources :carts, only: %i[index show destroy]
     resources :orders, only: %i[index show destroy]
-    resources :users, only: %i[index show edit update destroy]
+    resources :users, only: %i[index show edit update destroy] do
+      resources :orders, only: %i[index]
+    end
   end
 
   match "*unmatched", to: "application#render_404", via: :all

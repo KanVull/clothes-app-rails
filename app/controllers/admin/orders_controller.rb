@@ -1,7 +1,11 @@
 class Admin::OrdersController < Admin::BaseController
   def index
     @title = "Admin - Orders"
-    @orders = Order.all
+    if params[:user_id].present?
+      @orders = User.find(params[:user_id]).orders
+    else
+      @orders = Order.all
+    end
   end
 
   def show
