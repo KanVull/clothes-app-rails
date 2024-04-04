@@ -1,6 +1,7 @@
 class Cart < ApplicationRecord
   has_many :items, class_name: "CartProduct", dependent: :destroy
   has_many :products, through: :items
+  belongs_to :user, optional: true
 
   validates :session_key, presence: true
 
