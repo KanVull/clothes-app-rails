@@ -3,7 +3,7 @@ class Cart < ApplicationRecord
   has_many :products, through: :items
   belongs_to :user, optional: true
 
-  validates :session_key, presence: true
+  validate :session_key_xor_user_id
 
   def self.with_items
     includes(:items)
@@ -41,6 +41,14 @@ class Cart < ApplicationRecord
     transaction do
       save!
       cart2.destroy!
+    end
+  end
+
+  private
+
+  def session_key_xor_user_id
+    unless session_key.present? ^ user_id.present?
+      errors.add :base, :invalid, message: "Either session key or user ID must be provided, but not both"
     end
   end
 end

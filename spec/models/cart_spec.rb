@@ -1,13 +1,28 @@
 RSpec.describe Cart, type: :model do
   describe "validations" do
-    it "is valid with a session key" do
-      cart = build(:cart)
+    let(:cart) { build(:cart) }
+    it "is invalid with a session key and user_id" do
+      cart.session_key = "session_key"
+      cart.user_id = 1
+      expect(cart).not_to be_valid
+    end
+
+    it "is invalid without session_key or user_id" do
+      cart.session_key = nil
+      cart.user_id = nil
+      expect(cart).not_to be_valid
+    end
+
+    it "is invalid with a session key" do
+      cart.session_key = "session_key"
+      cart.user_id = nil
       expect(cart).to be_valid
     end
 
-    it "is invalid without a session key" do
-      cart = build(:cart, session_key: nil)
-      expect(cart).to be_invalid
+    it "is invalid with a user_id" do
+      cart.session_key = nil
+      cart.user_id = 1
+      expect(cart).to be_valid
     end
   end
 
