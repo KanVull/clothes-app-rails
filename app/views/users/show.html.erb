@@ -1,0 +1,7 @@
+<div class="container">
+  <%= @user.email %>, Hi, this is your profile page.
+  <hr>
+  <% @user.orders.each do |order| %>
+    <%= link_to "Order: #{order.id}", order_by_uuid_path(order.uuid), class: "btn btn-info mt-1" %>
+  <% end %>
+</div>

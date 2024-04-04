@@ -2,5 +2,6 @@
   <h1>User: <%= @user.id %></h1>
   <hr>
   <%= render partial: "form", locals: { user: @user } %>
+  <hr>
   <%= button_to "Delete", admin_user_path(@user), method: :delete, data: { confirm: "Are you sure you want to delete this user?" }, class: "btn btn-danger" %>
 </div>

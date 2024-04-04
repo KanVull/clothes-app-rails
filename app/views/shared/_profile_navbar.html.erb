@@ -1,6 +1,6 @@
 <div class="align-items-center justify-content-center text-white">
   <% if user.present? %>
-    <%= user.email %>
+    <%= link_to user.email, user, class: "btn btn-outline-success" %>
     <%= button_to "Logout", session_path, method: :delete,
         form_class: "d-inline ml-2", class: "btn btn-outline-danger" %>
   <% else %>

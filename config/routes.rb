@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   get "/catalog(/:category_slug)", to: "catalog#index", as: "catalog"
   resources :products, only: %i[show]
 
-  resources :users, only: %i[new create]
+  resources :users, only: %i[new create show]
   resources :sessions, only: %i[new create]
   resource :session, to: "sessions#destroy", only: %i[destroy], defaults: { id: nil }
 

@@ -35,4 +35,9 @@ FactoryBot.define do
     cart
     product
   end
+
+  factory :user, class: User do
+    email { Faker::Internet.email }
+    password_digest { Faker::Internet.password }
+  end
 end
