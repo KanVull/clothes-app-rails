@@ -39,6 +39,6 @@ class OrdersController < ApplicationController
   private
 
   def order_params
-    params.require(:order).permit(:email)
+    params.require(:order).permit(:email, :shipping_address)
   end
 end
