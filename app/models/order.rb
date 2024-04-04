@@ -1,6 +1,7 @@
 class Order < ApplicationRecord
   has_many :items, class_name: "OrderProduct", dependent: :destroy
   has_many :products, through: :items
+  belongs_to :user, optional: true
 
   validates :email, presence: true
 
@@ -16,6 +17,10 @@ class Order < ApplicationRecord
         quantity: item.quantity,
         price_at_purchase: item.product.price
       )
+    end
+    order.user_id = cart.user_id
+    if order.user
+      order.email = order.user.email
     end
     order.total_amount = cart.total_amount
     order

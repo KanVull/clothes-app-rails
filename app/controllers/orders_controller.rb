@@ -19,7 +19,11 @@ class OrdersController < ApplicationController
     if @order.save
       current_cart.destroy
       OrdersMailer.order_created(@order).deliver_now
-      redirect_to catalog_path, notice: "Order placed successfully! You can check your email for order information!"
+      if @order.user_id.present?
+        redirect_to order_by_uuid_path(@order.uuid), notice: "Order placed successfully!"
+      else
+        redirect_to catalog_path, notice: "Order placed successfully! You can check your email for order information!"
+      end
     else
       render :new
     end
@@ -27,7 +31,9 @@ class OrdersController < ApplicationController
 
   def show
     @order = Order.find_by!(uuid: params[:uuid])
-    render layout: "order"
+    unless @order.user
+      render layout: "session_order"
+    end
   end
 
   private
