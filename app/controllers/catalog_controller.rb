@@ -19,7 +19,7 @@ class CatalogController < ApplicationController
   private
 
   def show_products_categories
-    @pagy, @products = pagy(@products, items: 3)
+    @pagy, @products = pagy(@products, items: 6)
     @product_categories = ProductCategory.with_published_products.order(:name)
   end
 

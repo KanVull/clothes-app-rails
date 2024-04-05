@@ -1,14 +1,20 @@
 <div class="container">
   <%= form_for @order, url: orders_path, method: :post do |form| %>
-    <%= form.label :email %>
-    <%= form.email_field :email %>
-    <%= form.label :shipping_address %>
-    <%= form.text_field :shipping_address %>
-
-    <%= render partial: 'shared/items_table', locals: { items: @order.items, total_amount: @order.total_amount } %>
-
-    <%= form.submit 'Place Order', class: 'btn btn-success' %>
+    <div class="row d-flex flex-row justify-content-center">
+      <div class="col-lg-7">
+        <%= render partial: 'shared/items_table', locals: { items: @order.items, total_amount: @order.total_amount } %>
+      </div>
+      <div style="border-left:1px solid #000;height:500px"></div>
+      <div class="col-sm-4">
+        <div class="form mb-2">
+          <%= form.label :email %>
+          <%= form.email_field :email, class: "form-control mb-1 col" %>
+          <%= form.label :shipping_address %>
+          <%= form.text_field :shipping_address, class: "form-control col" %>
+        </div>
+        <%= form.submit 'Place Order', class: 'btn btn-success' %>
+        <%= link_to "Cancel", cart_path, class: 'nav-link' %>
+      </div>
+    </div>
   <% end %>
-
-  <%= link_to "Cancel", cart_path, class: 'nav-link' %>
 </div>

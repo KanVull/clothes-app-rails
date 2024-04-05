@@ -1,13 +1,17 @@
-<%= form_for filter, url: request.path, method: :get do |form| %>
-  <%= form.label :query, "Search:" %>
-  <%= form.text_field :query, placeholder: "Search products..." %>
+<%= form_for filter, url: request.path, method: :get, class: "form-group" do |form| %>
+  <div class="row justify-content-end">
+    <%= form.label :query, "Search:", class: "col-3" %>
+    <%= form.text_field :query, placeholder: "Search products...", class: "form-control col-8" %>
+  </div>
 
-  <%= form.label :min_price, "Min Price:" %>
-  <%= form.number_field :min_price %>
+  <div class="row justify-content-end">
+    <%= form.label "Price:", class: "col-3" %>
+    <%= form.number_field :min_price, class: "form-control col-4" %>
+    <%= form.number_field :max_price, class: "form-control col-4" %>
+  </div>
 
-  <%= form.label :max_price, "Max Price:" %>
-  <%= form.number_field :max_price %>
-
-  <%= form.submit "Filter" %>
+  <div class="row justify-content-end mt-1">
+    <%= link_to "Clear", catalog_path, class: "btn btn-outline-info col-3" %>
+    <%= form.submit "Filter", class: "btn btn-outline-info col-3" %>
+  </div>
 <% end %>
-<%= link_to "Reset filtering", catalog_path, class: "list-group-item" %>

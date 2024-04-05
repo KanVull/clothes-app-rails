@@ -27,6 +27,7 @@ RSpec.describe Order, type: :model do
 
       it "creates a new order with items from the cart and user's email" do
         order = Order.create_from_cart(cart)
+        order.save
 
         expect(order.items.length).to eq(cart.items.count)
 

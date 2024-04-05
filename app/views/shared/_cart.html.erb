@@ -1,1 +1,3 @@
-<%= link_to "#{cart.items.empty? ? 'Cart' : "#{cart.items.count} Cart"}", cart_path, class: 'btn btn-outline-success mr-1' %>
+<%= link_to cart_path, class: 'btn btn-outline-success mr-1' do %>
+  <%= cart.items&.count %><i class="fa-solid fa-cart-shopping ml-1"></i>
+<% end %>

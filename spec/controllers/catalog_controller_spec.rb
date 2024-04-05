@@ -8,9 +8,9 @@ RSpec.describe CatalogController, type: :controller do
     end
 
     it "assigns @products" do
-      products = create_list(:product, 4)
+      products = create_list(:product, 8)
       get :index
-      expect(assigns(:products)).to eq(products[0..2])
+      expect(assigns(:products)).to eq(products[0..5])
     end
 
     it "assigns @pagy" do
@@ -28,10 +28,10 @@ RSpec.describe CatalogController, type: :controller do
       expect(response).to render_template("index")
     end
 
-    it "paginates products with 3 items per page" do
-      products = create_list(:product, 4)
+    it "paginates products with 6 items per page" do
+      products = create_list(:product, 7)
       get :index
-      expect(assigns(:products).count).to eq(3)
+      expect(assigns(:products).count).to eq(6)
     end
 
     it "filters products by query" do

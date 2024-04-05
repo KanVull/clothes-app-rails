@@ -10,7 +10,7 @@
           <th>Quantity</th>
           <th/>
           <th>Total price</th>
-          <th>Del</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
@@ -19,17 +19,19 @@
             <td><%= item.product.name %></td>
             <td><%= item.product.price %></td>
             <td>
-              <%= form_tag(cart_path, method: :patch, class: "d-inline") do %>
+              <%= form_tag(cart_path, method: :patch, class: "form-inline") do %>
                 <%= hidden_field_tag :product_id, item.product_id %>
                 <%= number_field_tag "quantity", item.quantity, class: 'form-control', min: 1 %>
-                <%= button_tag "Update", type: "submit", class: "btn btn-info" %>
+                <%= button_tag "Update", type: "submit", class: "btn btn-info forrm-control" %>
               <% end %>
             </td>
             <td>
             </td>
             <td><%= item.product.price * item.quantity %></td>
             <td>
-              <%= button_to "Remove from Cart", cart_path(product_id: item.product_id, quantity: 0), method: :patch, class: 'btn btn-outline-danger'%>
+              <%= button_to cart_path(product_id: item.product_id, quantity: 0), method: :patch, class: 'btn btn-outline-danger' do %>
+                <i class="fa-solid fa-xmark"></i>
+              <% end %>
             </td>
           </tr>
         <% end %>

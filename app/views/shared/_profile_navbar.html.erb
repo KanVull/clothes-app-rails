@@ -1,8 +1,12 @@
 <div class="btn-group align-items-center justify-content-center text-white">
   <% if user.present? %>
-    <%= link_to user.email, profile_path, class: "btn btn-outline-success" %>
-    <%= button_to "Logout", session_path, method: :delete,
-        form_class: "d-inline btn-group ml-1", class: "btn btn-outline-danger" %>
+    <%= link_to profile_path, class: "btn btn-outline-success" do %>
+      <i class="fa-solid fa-user"></i>
+    <% end %>
+    <%= button_to session_path, method: :delete,
+        form_class: "d-inline btn-group ml-1", class: "btn btn-outline-danger" do %>
+          <i class="fa-solid fa-arrow-right-from-bracket"></i>
+    <% end %>
   <% else %>
     <%= link_to "Sign In", new_session_path, class: "nav-item nav-link" %>
   <% end %>
