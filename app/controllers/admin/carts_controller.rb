@@ -12,6 +12,7 @@ class Admin::CartsController < Admin::BaseController
   def destroy
     @cart = Cart.find(params[:id])
     @cart.destroy
-    redirect_to admin_carts_path, notice: "Cart was successfully deleted."
+    flash[:success] = "Cart was successfully deleted."
+    redirect_to admin_carts_path
   end
 end

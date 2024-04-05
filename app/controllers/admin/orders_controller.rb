@@ -16,6 +16,7 @@ class Admin::OrdersController < Admin::BaseController
   def destroy
     @order = Order.find(params[:id])
     @order.destroy
-    redirect_to admin_orders_path, notice: "Order was successfully deleted."
+    flash[:warning] = "Order was successfully deleted."
+    redirect_to admin_orders_path
   end
 end

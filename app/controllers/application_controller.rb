@@ -11,7 +11,8 @@ class ApplicationController < ActionController::Base
 
   def require_user!
     unless current_user
-      redirect_to new_session_path, alert: "Please sign in to get access to this page!"
+      flash[:warning] = "Please sign in to get access to this page!"
+      redirect_to new_session_path
     end
   end
 

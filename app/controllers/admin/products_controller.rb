@@ -19,7 +19,8 @@ class Admin::ProductsController < Admin::BaseController
     @product = Product.new(product_params)
 
     if @product.save
-      redirect_to admin_products_path, notice: "Product was successfully created."
+      flash[:success] = "Product was successfully created."
+      redirect_to admin_products_path
     else
       flash.now[:warning] = "Product wasn't created!"
       render :new
@@ -32,7 +33,8 @@ class Admin::ProductsController < Admin::BaseController
 
   def update
     if @product.update(product_params)
-      redirect_to admin_product_path(@product), notice: "Product was successfully updated."
+      flash[:success] = "Product was successfully updated."
+      redirect_to admin_product_path(@product)
     else
       flash.now[:warning] = "Product wasn't updated!"
       render :edit
@@ -41,7 +43,8 @@ class Admin::ProductsController < Admin::BaseController
 
   def destroy
     @product.destroy
-    redirect_to admin_products_path, notice: "Product was successfully deleted."
+    flash[:success] = "Product was successfully deleted."
+    redirect_to admin_products_path
   end
 
   private

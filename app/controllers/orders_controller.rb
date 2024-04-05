@@ -1,7 +1,8 @@
 class OrdersController < ApplicationController
   def new
     if current_cart.items.empty?
-      redirect_to catalog_path, notice: "Your cart is empty. Please add items before placing an order."
+      flash[:info] = "Your cart is empty. Please add items before placing an order."
+      redirect_to catalog_path
     else
       @order = Order.create_from_cart(current_cart)
     end
@@ -9,7 +10,8 @@ class OrdersController < ApplicationController
 
   def create
     if current_cart.items.empty?
-      redirect_to catalog_path, alert: "Cart is empty!"
+      flash[:info] = "Cart is empty!"
+      redirect_to catalog_path
       return
     end
 
@@ -20,9 +22,11 @@ class OrdersController < ApplicationController
       current_cart.destroy
       OrdersMailer.order_created(@order).deliver_now
       if @order.user_id.present?
-        redirect_to order_by_uuid_path(@order.uuid), notice: "Order placed successfully!"
+        flash[:success] = "Order placed successfully!"
+        redirect_to order_by_uuid_path(@order.uuid)
       else
-        redirect_to catalog_path, notice: "Order placed successfully! You can check your email for order information!"
+        flash[:success] = "Order placed successfully! You can check your email for order information!"
+        redirect_to catalog_path
       end
     else
       render :new
