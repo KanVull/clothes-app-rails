@@ -1,7 +1,4 @@
 class CartsController < ApplicationController
-  def show
-  end
-
   def update
     product = Product.find(params[:product_id])
 
