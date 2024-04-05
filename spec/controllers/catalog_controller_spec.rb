@@ -54,24 +54,24 @@ RSpec.describe CatalogController, type: :controller do
       expect(assigns(:products)).not_to include(product1)
     end
 
-    context "when category_name is present and exists" do
+    context "when category_slug is present and exists" do
       let(:filter_params) { { query: "test", min_price: 10, max_price: 100 } }
       let!(:existing_category) { create(:product_category) }
 
       before do
-        get :index, params: { category_name: existing_category.name }
+        get :index, params: { category_slug: existing_category.slug }
       end
 
       it "sets @title with category name" do
         expect(assigns(:title)).to eq("Store - #{existing_category.name}")
       end
 
-      it "filters products with category_name" do
-        expect(assigns(:filter).category_name).to eq(existing_category.name)
+      it "filters products with category_slug" do
+        expect(assigns(:filter).category_slug).to eq(existing_category.slug)
       end
 
-      it "merges category_name into f_params" do
-        expect(assigns(:f_params).to_h).to include(category_name: existing_category.name)
+      it "merges category_slug into f_params" do
+        expect(assigns(:f_params).to_h).to include(category_slug: existing_category.slug)
       end
 
       it "does not render a 404 page" do
@@ -79,9 +79,9 @@ RSpec.describe CatalogController, type: :controller do
       end
     end
 
-    context "when category_name is present but does not exist" do
+    context "when category_slug is present but does not exist" do
       before do
-        get :index, params: { category_name: "Nonexistent Category" }
+        get :index, params: { category_slug: "Nonexistent Category" }
       end
 
       it "renders a 404 page" do
@@ -93,15 +93,15 @@ RSpec.describe CatalogController, type: :controller do
       end
     end
 
-    context "when category_name is not present" do
+    context "when category_slug is not present" do
       it "sets @title to 'Store - Catalog'" do
         get :index
         expect(assigns(:title)).to eq("Store - Catalog")
       end
 
-      it "does not filter products with category_name" do
+      it "does not filter products with category_slug" do
         get :index
-        expect(assigns(:filter).category_name).to be_nil
+        expect(assigns(:filter).category_slug).to be_nil
       end
     end
   end

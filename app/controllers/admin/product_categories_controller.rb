@@ -47,7 +47,7 @@ class Admin::ProductCategoriesController < Admin::BaseController
   private
 
   def product_category_params
-    params.require(:product_category).permit(:shown_name, :description)
+    params.require(:product_category).permit(:name, :description)
   end
 
   def set_product_category

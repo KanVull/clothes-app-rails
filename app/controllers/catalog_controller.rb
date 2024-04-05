@@ -3,11 +3,11 @@ class CatalogController < ApplicationController
 
   def index
     @f_params = filter_params
-    if params[:category_name].present?
-      ProductCategory.find_by_name!(params[:category_name])
+    if params[:category_slug].present?
+      pc = ProductCategory.find_by_slug!(params[:category_slug])
 
-      @title = "Store - #{params[:category_name]}"
-      @f_params = @f_params.merge({ category_name: params[:category_name] })
+      @title = "Store - #{pc.name}"
+      @f_params = @f_params.merge({ category_slug: params[:category_slug] })
     else
       @title = "Store - Catalog"
     end
