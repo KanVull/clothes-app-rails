@@ -1,9 +1,9 @@
 class OrdersController < ApplicationController
   def new
-    if current_cart.nil? || current_cart.items.empty?
+    if current_cart.items.empty?
       redirect_to catalog_path, notice: "Your cart is empty. Please add items before placing an order."
     else
-      @order = Order.create_from_cart(Current.cart)
+      @order = Order.create_from_cart(current_cart)
     end
   end
 
