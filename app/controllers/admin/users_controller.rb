@@ -16,7 +16,8 @@ class Admin::UsersController < Admin::BaseController
 
   def update
     if @user.update(user_params)
-      redirect_to admin_user_path(@user), notice: "User was successfully updated."
+      flash[:success] = "User was successfully updated."
+      redirect_to admin_user_path(@user)
     else
       flash.now[:warning] = "User wasn't updated!"
       render :edit
@@ -25,7 +26,8 @@ class Admin::UsersController < Admin::BaseController
 
   def destroy
     @user.destroy
-    redirect_to admin_users_path, notice: "User was successfully deleted."
+    flash[:success] = "User was successfully deleted."
+    redirect_to admin_users_path
   end
 
   private

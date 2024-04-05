@@ -5,6 +5,7 @@
     <tr>
       <th scope="col">#</th>
       <th scope="col">UUID</th>
+      <th scope="col">User_id</th>
       <th scope="col">Email</th>
       <th scope="col">Shipping address</th>
       <th scope="col">Total amount</th>
@@ -17,6 +18,7 @@
       <tr>
         <th scope="row"><%= o.id %></th>
         <td><%= o.uuid %></td>
+        <td><%= o.user_id.presence || "session's order" %></td>
         <td><%= o.email %></td>
         <td><%= o.shipping_address %></td>
         <td><%= o.total_amount %></td>

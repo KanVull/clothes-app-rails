@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_03_27_141445) do
+ActiveRecord::Schema[7.1].define(version: 2024_04_04_100137) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -26,9 +26,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_27_141445) do
   end
 
   create_table "carts", force: :cascade do |t|
-    t.string "session_key", null: false
+    t.string "session_key"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id"
   end
 
   create_table "order_products", force: :cascade do |t|
@@ -50,6 +51,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_27_141445) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.uuid "uuid", default: -> { "gen_random_uuid()" }, null: false
+    t.bigint "user_id"
     t.index ["uuid"], name: "index_orders_on_uuid", unique: true
   end
 
@@ -86,7 +88,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_27_141445) do
 
   add_foreign_key "cart_products", "carts"
   add_foreign_key "cart_products", "products"
+  add_foreign_key "carts", "users"
   add_foreign_key "order_products", "orders"
   add_foreign_key "order_products", "products"
+  add_foreign_key "orders", "users"
   add_foreign_key "products", "product_categories"
 end

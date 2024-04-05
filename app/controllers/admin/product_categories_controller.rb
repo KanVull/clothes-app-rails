@@ -19,7 +19,8 @@ class Admin::ProductCategoriesController < Admin::BaseController
     @product_category = ProductCategory.new(product_category_params)
 
     if @product_category.save
-      redirect_to admin_product_categories_path, notice: "Product category was successfully created."
+      flash[:success] = "Product category was successfully created."
+      redirect_to admin_product_categories_path
     else
       flash.now[:warning] = "Product category wasn't created!"
       render :new
@@ -32,7 +33,8 @@ class Admin::ProductCategoriesController < Admin::BaseController
 
   def update
     if @product_category.update(product_category_params)
-      redirect_to admin_product_categories_path(@product_category), notice: "Product category was successfully updated."
+      flash[:success] = "Product category was successfully updated."
+      redirect_to admin_product_categories_path(@product_category)
     else
       flash.now[:warning] = "Product category wasn't updated!"
       render :edit
@@ -41,13 +43,14 @@ class Admin::ProductCategoriesController < Admin::BaseController
 
   def destroy
     @product_category.destroy
-    redirect_to admin_product_categories_path, notice: "Product category was successfully deleted."
+    flash[:success] = "Product category was successfully deleted."
+    redirect_to admin_product_categories_path
   end
 
   private
 
   def product_category_params
-    params.require(:product_category).permit(:shown_name, :description)
+    params.require(:product_category).permit(:name, :description)
   end
 
   def set_product_category

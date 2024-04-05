@@ -1,5 +1,13 @@
 <% flash.each do |key, value| %>
   <div class="alert alert-<%= key %>">
+    <% case key %>
+    <% when "warning" %>
+      <i class="fa-solid fa-triangle-exclamation"></i>
+    <% when "info" %>
+      <i class="fa-solid fa-info"></i>
+    <% when "success" %>
+      <i class="fa-regular fa-circle-check"></i>
+    <% end %>
     <%= value %>
   </div>
 <% end %>

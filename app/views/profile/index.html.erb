@@ -1,0 +1,7 @@
+<div class="container">
+  <%= @user.email %>, Hi, this is your profile page.
+  <hr>
+  <% @user.orders.each do |order| %>
+    <%= render partial: "shared/order", locals: { order: order } %>
+  <% end %>
+</div>

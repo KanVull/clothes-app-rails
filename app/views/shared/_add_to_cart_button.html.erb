@@ -1,5 +1,14 @@
-<% if Current.cart.present? && Current.cart.has_item?(product.id) %>
-  <%= button_to "Remove from Cart", cart_path(product_id: product.id, quantity: 0), method: :patch, class: 'btn btn-outline-danger'%>
+<% if current_cart.has_item?(product.id) %>
+  <div class="d-flex justify-content-center">
+    <%= button_to cart_path(product_id: product.id, quantity: 0), method: :patch, class: "btn btn-outline-danger mr-1" do %>
+      <i class="fa-solid fa-xmark"></i>
+    <% end %>
+    <%= link_to cart_path, class: "btn btn-outline-success" do %>
+      <i class="fa-solid fa-cart-shopping"></i>
+    <% end %>
+  </div>
 <% else %>
-  <%= button_to "Add to Cart", cart_path(product_id: product.id, quantity: 1), method: :patch, class: "btn btn-success" %>
+  <%= button_to cart_path(product_id: product.id, quantity: 1), method: :patch, class: "btn btn-outline-success" do %>
+    <i class="fa-solid fa-cart-plus"></i>
+  <% end %>
 <% end %>

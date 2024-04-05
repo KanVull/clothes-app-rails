@@ -1,6 +1,12 @@
 <div class="container">
   <h1>Cart: <%= @cart.id %></h1>
   <hr>
+  <% if @cart.user %>
+    <%= link_to "User: #{@cart.user_id}", admin_user_path(@cart.user_id), class: "btn btn-info"%>
+  <% else %>
+    Session ID: <%= @cart.session_key %>
+  <% end %>
+  <hr>
   <% if @cart.items.any? %>
     <%= render partial: 'shared/items_table', locals: { items: @cart.items, total_amount: @cart.total_amount } %>
     <hr>

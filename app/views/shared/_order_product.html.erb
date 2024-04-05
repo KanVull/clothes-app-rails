@@ -1,0 +1,17 @@
+<div class="card rounded-0 border-0">
+  <div class="card-body row d-flex align-items-center border-bottom mx-4 py-1">
+    <div class="col-md-8">
+      <%= link_to item.product.name, item.product %>
+    </div>
+    <div class="col">
+      <%= item.quantity %>
+    </div>
+    <div class="col">
+      <%= item.price_at_purchase %>
+    </div>
+    <div class="col">
+      <%= item.total_amount %>
+    </div>
+    <hr>
+  </div>
+</div>

@@ -1,13 +1,29 @@
 RSpec.describe Cart, type: :model do
   describe "validations" do
-    it "is valid with a session key" do
-      cart = build(:cart)
+    let(:cart) { build(:cart) }
+    let(:user) { build(:user) }
+    it "is invalid with a session key and user_id" do
+      cart.session_key = "session_key"
+      cart.user = user
+      expect(cart).not_to be_valid
+    end
+
+    it "is invalid without session_key or user_id" do
+      cart.session_key = nil
+      cart.user = nil
+      expect(cart).not_to be_valid
+    end
+
+    it "is invalid with a session key" do
+      cart.session_key = "session_key"
+      cart.user = nil
       expect(cart).to be_valid
     end
 
-    it "is invalid without a session key" do
-      cart = build(:cart, session_key: nil)
-      expect(cart).to be_invalid
+    it "is invalid with a user_id" do
+      cart.session_key = nil
+      cart.user = user
+      expect(cart).to be_valid
     end
   end
 
@@ -56,6 +72,41 @@ RSpec.describe Cart, type: :model do
       allow(item2).to receive_message_chain(:product, :price).and_return(20)
 
       expect(cart.total_amount).to eq(80)
+    end
+  end
+
+  describe '#merge!' do
+    let(:cart1) { create(:cart) }
+    let(:cart2) { create(:cart) }
+    let(:product1) { create(:product) }
+    let(:product2) { create(:product) }
+
+    before do
+      create(:cart_product, cart: cart1, product: product1, quantity: 2)
+      create(:cart_product, cart: cart2, product: product1, quantity: 3)
+      create(:cart_product, cart: cart2, product: product2, quantity: 1)
+    end
+
+    it 'should merge cart2 items into cart1' do
+      cart1.merge!(cart2)
+      expect(cart1.items.count).to eq(2)
+      expect(cart1.items.find_by(product_id: product1.id).quantity).to eq(5)
+      expect(cart1.items.find_by(product_id: product2.id)).to_not be_nil
+    end
+
+    it 'should update quantity of existing products' do
+      cart1.merge!(cart2)
+      cart1_item = cart1.items.find_by(product_id: product1.id)
+      expect(cart1_item.quantity).to eq(5)
+    end
+
+    it 'should create new cart products for new products' do
+      cart1.merge!(cart2)
+      expect(cart1.items.where(product_id: product2.id)).to exist
+    end
+
+    it 'should destroy cart2' do
+      expect { cart1.merge!(cart2) }.to change { Cart.exists?(cart2.id) }.from(true).to(false)
     end
   end
 end

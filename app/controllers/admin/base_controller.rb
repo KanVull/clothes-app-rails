@@ -8,7 +8,8 @@ class Admin::BaseController < ApplicationController
 
   def require_admin!
     unless current_user&.admin?
-      redirect_to new_session_path, alert: "You must be an admin to access this page. If you require access, please contact the administrator."
+      flash[:warning] = "You must be an admin to access this page. If you require access, please contact the administrator."
+      redirect_to new_session_path
     end
   end
 end
