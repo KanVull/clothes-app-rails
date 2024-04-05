@@ -16,7 +16,7 @@
       <tr>
         <th scope="row"><%= u.id %></th>
         <td><%= u.email %></td>
-        <td><%= u.admin? %></td>
+        <td><%= u.admin? ? "Yes" : "No" %></td>
         <td><%= u.created_at %></td>
         <td><%= u.updated_at %></td>
         <td>

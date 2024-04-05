@@ -1,8 +1,8 @@
-<div class="align-items-center justify-content-center text-white">
+<div class="btn-group align-items-center justify-content-center text-white">
   <% if user.present? %>
     <%= link_to user.email, user, class: "btn btn-outline-success" %>
     <%= button_to "Logout", session_path, method: :delete,
-        form_class: "d-inline ml-2", class: "btn btn-outline-danger" %>
+        form_class: "d-inline btn-group ml-1", class: "btn btn-outline-danger" %>
   <% else %>
     <%= link_to "Sign In", new_session_path, class: "nav-item nav-link" %>
   <% end %>

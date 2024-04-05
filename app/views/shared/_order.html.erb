@@ -8,7 +8,8 @@
       <%= render partial: "shared/order_product", locals: { item: item } %>
     <% end %>
   </div>
-  <div class="card-footer">
-    Total: <%= order.total_amount %>
+  <div class="card-footer d-flex justify-content-between">
+    <span> Total: <%= order.total_amount %> </span>
+    <span> Date creation: <%= order.created_at %> </span>
   </div>
 </div>
