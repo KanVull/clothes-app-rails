@@ -12,11 +12,6 @@ class UsersController < ApplicationController
     end
   end
 
-  def show
-    @title = "Store - Profile"
-    @user = User.find(params[:id])
-  end
-
   private
 
   def user_params
