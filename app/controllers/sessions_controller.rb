@@ -8,10 +8,7 @@ class SessionsController < ApplicationController
         expires: 7.days.from_now,
         httponly: true
       }
-      cart = current_cart
-      if session_cart = Cart.find_by(session_key: session.id.to_s)
-        cart.merge!(session_cart)
-      end
+      merge_cart
       flash[:success] = "Logged in successfully!"
       redirect_to catalog_url
     else
@@ -24,5 +21,14 @@ class SessionsController < ApplicationController
     cookies.delete :user_id
     flash[:success] = "Logged out successfully!"
     redirect_to catalog_url
+  end
+
+  private
+  
+  def merge_cart
+    cart = current_cart
+    if session_cart = Cart.find_by(session_key: session.id.to_s)
+      cart.merge!(session_cart)
+    end
   end
 end
