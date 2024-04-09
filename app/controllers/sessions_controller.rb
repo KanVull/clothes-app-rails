@@ -8,6 +8,10 @@ class SessionsController < ApplicationController
         expires: 7.days.from_now,
         httponly: true
       }
+      cart = current_cart
+      if session_cart = Cart.find_by(session_key: session.id.to_s)
+        cart.merge!(session_cart)
+      end
       flash[:success] = "Logged in successfully!"
       redirect_to catalog_url
     else
