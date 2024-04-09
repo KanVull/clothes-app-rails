@@ -1,4 +1,5 @@
 class ProductCategory < ApplicationRecord
+  has_ancestry
   has_many :products, dependent: :destroy
 
   before_validation :set_slug
