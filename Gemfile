@@ -2,6 +2,9 @@ source "https://rubygems.org"
 
 ruby "3.3.0"
 
+# Use tree structure in ActiveRecord models
+gem "ancestry"
+
 # Use has_secure_password to authenticate
 gem "bcrypt", "~> 3.1.7"
 
