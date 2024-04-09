@@ -24,7 +24,7 @@ class SessionsController < ApplicationController
   end
 
   private
-  
+
   def merge_cart
     cart = current_cart
     if session_cart = Cart.find_by(session_key: session.id.to_s)
