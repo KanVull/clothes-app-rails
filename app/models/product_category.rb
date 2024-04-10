@@ -13,9 +13,22 @@ class ProductCategory < ApplicationRecord
     super + %w[impressionable]
   end
 
+  def set_parent(parent)
+    # Do nothing if parent_id is already self.parent.id
+    return if parent.parent_of?(self)
+
+    if parent == self
+      raise "Setting node's parent to itself is not allowed"
+    end
+
+    self.parent = parent
+  end
+
   private
 
   def set_slug
-    self.slug = name&.parameterize.presence
+    unless self.slug.present?
+      self.slug = name&.parameterize.presence
+    end
   end
 end

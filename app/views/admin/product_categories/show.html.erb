@@ -2,6 +2,14 @@
   <h1>Product Category: <%= @product_category.id %></h1>
   <hr>
   <%= render partial: "form", locals: { product_category: @product_category } %>
+  <hr>
+  <% if @product_category.has_children? %>
+    Subcategories
+    <% @product_category.children.each do |child| %>
+      <%= link_to child.name, admin_product_category_path(child), class: "btn btn-outline-info" %>
+    <% end %>
+    <hr>
+  <% end %>
   <%= button_to "Delete", admin_product_category_path(@product_category), method: :delete,
                 data: { confirm: "Are you sure you want to delete this product?" }, 
                 class: "btn btn-danger" %>

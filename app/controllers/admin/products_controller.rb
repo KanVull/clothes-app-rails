@@ -1,5 +1,6 @@
 class Admin::ProductsController < Admin::BaseController
   before_action :set_product, only: %i[show edit update destroy]
+  before_action :set_root_categories, only: %i[show new edit]
 
   def index
     @title = "Admin - Products"
@@ -63,5 +64,9 @@ class Admin::ProductsController < Admin::BaseController
 
   def set_product
     @product = Product.find(params[:id])
+  end
+
+  def set_root_categories
+    @root_categories = ProductCategory.roots
   end
 end
