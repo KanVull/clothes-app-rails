@@ -20,7 +20,7 @@ class CatalogController < ApplicationController
 
   def show_products_categories
     @pagy, @products = pagy(@products, items: 6)
-    @product_categories = ProductCategory.with_published_products.order(:name)
+    @root_categories = ProductCategory.roots.order(:name) # .with_published_products
   end
 
   def filter_params

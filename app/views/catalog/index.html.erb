@@ -3,9 +3,12 @@
     <div class="col-lg-3 mt-3">
       Select category
       <div class="list-group my-2">
-        <% @product_categories.each do |category| %>
-          <%= link_to category.name, catalog_path(category_slug: category.slug), class: "list-group-item"  %>
-        <% end %>  
+        <ul>
+          <%= render_categories(@root_categories) %>
+        </ul>
+        <%# @product_categories.each do |category| %>
+          <%# link_to category.name, catalog_path(category_slug: category.slug), class: "list-group-item"  %>
+        <%# end %>  
       </div>
       <%= render "filter_form", filter: @filter %>
     </div>
