@@ -48,4 +48,40 @@ RSpec.describe ProductCategory, type: :model do
       expect(categories_with_published_products).to be_empty
     end
   end
+
+  describe '#has_published_products?' do
+    let(:root_category) { create(:product_category, name: 'Root') }
+    let(:subcategory) { create(:product_category, name: 'Subcategory', parent: root_category) }
+    let!(:published_product) { create(:product, product_category: subcategory, published_at: 1.day.ago) }
+    let!(:unpublished_product) { create(:product, product_category: subcategory, published_at: 1.day.from_now) }
+
+    it 'returns true if category has published products' do
+      expect(subcategory.has_published_products?).to be_truthy
+    end
+
+    it 'returns true if category has children that has publiched products' do
+      expect(root_category.has_published_products?).to be_truthy
+    end
+
+    it 'returns false if category has not publiched products' do
+      subcategory2 = create(:product_category, name: 'Subcategory2', parent: root_category)
+      expect(subcategory2.has_published_products?).to be_falsy
+    end
+  end
+
+  describe '#set_slug_from_name' do
+    it 'ensures uniqueness of the slug' do
+      category1 = create(:product_category, name: 'New Category', slug: nil)
+      category2 = create(:product_category, name: 'New Category', slug: nil)
+      category3 = create(:product_category, name: 'New Category', slug: nil)
+      expect(category1.slug).to eq('new-category')
+      expect(category2.slug).to eq('new-category-1')
+      expect(category3.slug).to eq('new-category-2')
+    end
+
+    it 'does not change the slug if already present' do
+      category = build(:product_category, name: 'New Category', slug: 'custom-slug')
+      expect(category.slug).to eq('custom-slug')
+    end
+  end
 end
