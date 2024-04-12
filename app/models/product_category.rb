@@ -24,6 +24,16 @@ class ProductCategory < ApplicationRecord
     self.parent = parent
   end
 
+  def has_published_products?
+    return true if products.exists?(&:published?)
+
+    children.each do |subcategory|
+      return true if subcategory.has_published_products?
+    end
+
+    false
+  end
+
   private
 
   def set_slug_from_name

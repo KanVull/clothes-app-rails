@@ -1,6 +1,8 @@
 module ProductCategoriesHelper
   def render_categories(categories)
     categories.map do |category|
+      next unless category.has_published_products?
+
       render(partial: "shared/category", locals: { category: category })
     end.join.html_safe
   end
