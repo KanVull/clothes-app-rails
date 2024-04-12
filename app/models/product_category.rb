@@ -5,6 +5,7 @@ class ProductCategory < ApplicationRecord
   before_validation :set_slug_from_name
 
   validates :slug, presence: true, uniqueness: true
+  validate :slug_must_be_parameterized
 
   scope :with_published_products, -> { joins(:products).merge(Product.published).distinct }
 
@@ -16,10 +17,6 @@ class ProductCategory < ApplicationRecord
   def set_parent(parent)
     # Do nothing if parent_id is already self.parent.id
     return if parent.parent_of?(self)
-
-    if parent == self
-      raise "Setting node's parent to itself is not allowed"
-    end
 
     self.parent = parent
   end
@@ -43,6 +40,14 @@ class ProductCategory < ApplicationRecord
     return unless base_slug
 
     similar_slugs_count = ProductCategory.where("slug LIKE ?", "#{base_slug}%").count
-    self.slug = similar_slugs_count.positive? ? "#{base_slug}_#{similar_slugs_count}" : base_slug
+    self.slug = similar_slugs_count.positive? ? "#{base_slug}-#{similar_slugs_count}" : base_slug
+  end
+
+  def slug_parameterized?
+    slug.present? && slug.parameterize == slug
+  end
+
+  def slug_must_be_parameterized
+    errors.add(:slug, "must be parameterized") unless slug_parameterized?
   end
 end

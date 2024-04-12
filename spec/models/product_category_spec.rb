@@ -84,4 +84,21 @@ RSpec.describe ProductCategory, type: :model do
       expect(category.slug).to eq('custom-slug')
     end
   end
+
+  describe '#slug_must_be_parametrized' do
+    it 'adds error if slug is not parametrized' do
+      category = build(:product_category, slug: 'invalid slug')
+      category.valid?
+      expect(category.errors[:slug]).to include("must be parameterized")
+    end
+
+    it 'change slug to unparameterized value cause an error' do
+      category = build(:product_category, name: 'Valid name')
+      category.valid?
+      expect(category).to be_valid
+      category.slug = "Invalid slug"
+      category.valid?
+      expect(category.errors[:slug]).to include("must be parameterized")
+    end
+  end
 end

@@ -29,7 +29,7 @@ class Admin::ProductCategoriesController < Admin::BaseController
       flash[:success] = "Product category was successfully created."
       redirect_to admin_product_categories_path
     else
-      flash.now[:warning] = "Product category wasn't created!"
+      flash.now[:warning] = new_category.errors.full_messages.join(", ")
       render :new
     end
   end
@@ -42,12 +42,13 @@ class Admin::ProductCategoriesController < Admin::BaseController
     p = product_category_params
     @product_category.set_parent(ProductCategory.find(p[:parent_id])) if p[:parent_id].present?
     unless @product_category.update(p)
-      raise "Product categoty wasn't updated!"
+      raise
     end
+
     flash[:success] = "Product category was successfully updated."
     redirect_to admin_product_category_path(@product_category)
-  rescue => e
-    flash.now[:warning] = e
+  rescue
+    flash.now[:warning] = @product_category.errors.full_messages.join(", ")
     render :edit
   end
 
@@ -60,7 +61,7 @@ class Admin::ProductCategoriesController < Admin::BaseController
   private
 
   def product_category_params
-    params.require(:product_category).permit(:parent_id, :name, :description)
+    params.require(:product_category).permit(:parent_id, :slug, :name, :description)
   end
 
   def set_product_category
