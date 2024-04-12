@@ -2,7 +2,7 @@ class ProductCategory < ApplicationRecord
   has_ancestry
   has_many :products, dependent: :destroy
 
-  before_validation :set_slug
+  before_validation :set_slug_from_name
 
   validates :slug, presence: true, uniqueness: true
 
@@ -26,9 +26,13 @@ class ProductCategory < ApplicationRecord
 
   private
 
-  def set_slug
-    unless self.slug.present?
-      self.slug = name&.parameterize.presence
-    end
+  def set_slug_from_name
+    return if slug.present?
+
+    base_slug = name&.parameterize.presence
+    return unless base_slug
+
+    similar_slugs_count = ProductCategory.where("slug LIKE ?", "#{base_slug}%").count
+    self.slug = similar_slugs_count.positive? ? "#{base_slug}_#{similar_slugs_count}" : base_slug
   end
 end

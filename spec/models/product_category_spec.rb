@@ -18,8 +18,14 @@ RSpec.describe ProductCategory, type: :model do
 
     it 'is not valid with a duplicate slug' do
       existing_category = create(:product_category)
-      product_category.name = existing_category.name
+      product_category.slug = existing_category.slug
       expect(product_category).not_to be_valid
+    end
+
+    it 'is valid with a duplicate name' do
+      existing_category = create(:product_category)
+      product_category.name = existing_category.name
+      expect(product_category).to be_valid
     end
   end
 
