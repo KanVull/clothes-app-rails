@@ -7,8 +7,6 @@ class ProductCategory < ApplicationRecord
   validates :slug, presence: true, uniqueness: true
   validate :slug_must_be_parameterized
 
-  scope :with_published_products, -> { joins(:products).merge(Product.published).distinct }
-
   def ransackable_associations(auth_object = nil)
     Rails.logger.info("WITHIN RANSACK ASSOCIATION")
     super + %w[impressionable]
@@ -19,16 +17,6 @@ class ProductCategory < ApplicationRecord
     return if parent.parent_of?(self)
 
     self.parent = parent
-  end
-
-  def has_published_products?
-    return true if products.exists?(&:published?)
-
-    children.each do |subcategory|
-      return true if subcategory.has_published_products?
-    end
-
-    false
   end
 
   private

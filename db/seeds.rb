@@ -58,7 +58,7 @@ categories = [
     ancestry: "/1/5/"
   },
   {
-    slug: "jackets_1",
+    slug: "jackets-1",
     name: "Jackets",
     descriprion: "It's women jackets!",
     ancestry: "/2/"

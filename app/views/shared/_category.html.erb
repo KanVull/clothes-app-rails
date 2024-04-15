@@ -1,10 +1,8 @@
-<% if category.has_published_products? %>
-  <li>
+<li>
   <%= link_to category.name, catalog_path(category_slug: category.slug) %>
-    <% if category.has_children? %>
-      <ul>
-        <%= render_categories(category.children) %>
-      </ul>
-    <% end %>
-  </li>
-<% end %>
+  <% if category.has_children? %>
+    <ul>
+      <%= render_categories(category.children) %>
+    </ul>
+  <% end %>
+</li>
