@@ -1,6 +1,23 @@
 <div class="container">
   <%= form_for [:admin, product_category], html: { class: "form-horizontal" } do |f| %>
     <div class="form-group">
+      <%= f.label :parent_id, "Parent category", class: "col-sm-2 control-label" %>
+      <div class="col-sm-10">
+        <%= f.collection_select :parent_id, nested_categories(@root_categories), :id, :name, { prompt: "Select parent" }, class: "form-control" %>
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <%= f.label :slug, class: "col-sm-2 control-label" %>
+      <div class="col-sm-10">
+        <%= f.text_field :slug, class: "form-control" %>
+      </div>
+      <figcaption class="blockquote-footer mb-0 ml-3 font-italic">
+        Will be set automatically if empty
+      </figcaption>
+    </div>
+
+    <div class="form-group">
       <%= f.label :name, class: "col-sm-2 control-label" %>
       <div class="col-sm-10">
         <%= f.text_field :name, class: "form-control" %>

@@ -9,7 +9,6 @@ class Product < ApplicationRecord
   validates :product_category_id, presence: true
 
   scope :published, -> { where("published_at <= ?", Time.zone.now) }
-  scope :in_category, ->(category_slug) { where(product_category_id: ProductCategory.where(slug: category_slug)) }
   scope :where_name_is_like, ->(name) { where("name ILIKE ?", "%#{name}%") if name.present? }
   scope :min_price_gte, ->(min_price) { where("price >= ?", min_price) if min_price.present? }
   scope :max_price_lte, ->(max_price) { where("price <= ?", max_price) if max_price.present? }
@@ -20,5 +19,10 @@ class Product < ApplicationRecord
 
   def category
     product_category.slug if product_category
+  end
+
+  def self.in_category(category_slug)
+    category = ProductCategory.find_by_slug(category_slug)
+    where(product_category: category.subtree)
   end
 end
