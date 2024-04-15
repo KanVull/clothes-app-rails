@@ -3,7 +3,7 @@
   <hr>
   <%= render partial: "form", locals: { user: @user } %>
   <hr>
-  <% if @user.cart.items.any? %>
+  <% if @user.cart&.items&.any? %>
     User cart <%= link_to "View", admin_cart_path(@user.cart), class: "btn btn-info ml-1" %>
     <hr>
   <% end %>
