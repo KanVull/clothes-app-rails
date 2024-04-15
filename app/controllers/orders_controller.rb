@@ -2,7 +2,7 @@ class OrdersController < ApplicationController
   def new
     if current_cart.items.empty?
       flash[:info] = "Your cart is empty. Please add items before placing an order."
-      redirect_to catalog_path
+      redirect_to root_path
     else
       @order = Order.create_from_cart(current_cart)
     end
@@ -11,7 +11,7 @@ class OrdersController < ApplicationController
   def create
     if current_cart.items.empty?
       flash[:info] = "Cart is empty!"
-      redirect_to catalog_path
+      redirect_to root_path
       return
     end
 
@@ -26,7 +26,7 @@ class OrdersController < ApplicationController
         redirect_to order_by_uuid_path(@order.uuid)
       else
         flash[:success] = "Order placed successfully! You can check your email for order information!"
-        redirect_to catalog_path
+        redirect_to root_path
       end
     else
       render :new
