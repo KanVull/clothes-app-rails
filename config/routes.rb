@@ -9,6 +9,8 @@ Rails.application.routes.draw do
   # users
   resources :users, only: %i[new create]
   resources :user_activations, only: %i[new edit]
+  resources :password_resets, only: %i[new create edit update]
+  get "/password_reset_success", to: "password_resets#mail_sent", as: "mail_sent"
   get "/profile", to: "profile#index", as: "profile"
   resources :sessions, only: %i[new create]
   resource :session, to: "sessions#destroy", only: %i[destroy], defaults: { id: nil }

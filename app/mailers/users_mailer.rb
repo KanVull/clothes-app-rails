@@ -5,7 +5,9 @@ class UsersMailer < ApplicationMailer
     mail(to: user.email, subject: "Store - Account activation")
   end
 
-  def password_reset
+  def password_reset(user)
+    @link = edit_password_reset_url(user.reset_token, email: user.email)
+
     mail(to: user.email, subject: "Store - Password recovery")
   end
 end

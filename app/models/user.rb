@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  attr_accessor :activation_token
+  attr_accessor :activation_token, :reset_token
   has_many :orders
   has_one :cart, dependent: :destroy
   has_secure_password
@@ -32,8 +32,22 @@ class User < ApplicationRecord
     update_attribute(:activation_digest, Token.digest(self.activation_token))
   end
 
+  def create_reset_password_digest
+    self.reset_token = Token.new_token
+    update_attribute(:reset_password_digest,  Token.digest(reset_token))
+    update_attribute(:reset_password_sent_at, Time.zone.now)
+  end
+
+  def password_reset_expired?
+    reset_password_sent_at < 2.hours.ago
+  end
+
   def send_activation_email
     UsersMailer.user_activation(self).deliver_now
+  end
+
+  def send_password_reset_email
+    UsersMailer.password_reset(self).deliver_now
   end
 
   private

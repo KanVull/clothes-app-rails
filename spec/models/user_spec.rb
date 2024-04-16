@@ -41,5 +41,31 @@ RSpec.describe User, type: :model do
     it "#send_activation_email sends activation email" do
       expect { user.send_activation_email }.to change { ActionMailer::Base.deliveries.count }.by(1)
     end
+
+    it "#send_password_reset_email sends password recovery email" do
+      user.create_reset_password_digest
+      expect { user.send_password_reset_email }.to change { ActionMailer::Base.deliveries.count }.by(1)
+    end
+  end
+
+  describe '#create_reset_password_digest' do
+    it 'should set reset_token, reset_password_digest, and reset_password_sent_at' do
+      user.create_reset_password_digest
+      expect(user.reset_token).to_not be_nil
+      expect(user.reset_password_digest).to_not be_nil
+      expect(user.reset_password_sent_at).to_not be_nil
+    end
+  end
+
+  describe '#password_reset_expired?' do
+    it 'should return true if reset_password_sent_at is older than 2 hours' do
+      user.reset_password_sent_at = 3.hours.ago
+      expect(user.password_reset_expired?).to eq(true)
+    end
+
+    it 'should return false if reset_password_sent_at is within 2 hours' do
+      user.reset_password_sent_at = 1.hour.ago
+      expect(user.password_reset_expired?).to eq(false)
+    end
   end
 end
