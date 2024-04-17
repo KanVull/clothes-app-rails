@@ -30,7 +30,6 @@ class PasswordResetsController < ApplicationController
   end
 
   def mail_sent
-    render "mail_sent"
   end
 
   private
