@@ -36,3 +36,5 @@
 
 # Ignore local environment variables file
 /config/local_env.yml
+
+/config/secrets

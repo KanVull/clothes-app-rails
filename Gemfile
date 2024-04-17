@@ -11,6 +11,9 @@ gem "bcrypt", "~> 3.1.7"
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
 
+# Storing images in app inside google storage busket
+gem "google-cloud-storage", "~> 1.47"
+
 # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
 gem "importmap-rails"
 
