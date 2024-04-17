@@ -1,5 +1,9 @@
 <div class="container">
   <h1>Edit User</h1>
+  <%= render partial: "shared/user_profile_picture", locals: { url: @user.image_url } %>
+  <% if @user.image.attached? %>
+    <%= button_to "Remove Image", user_remove_profile_image_path(@user), method: :delete, class: "btn btn-danger" %>
+  <% end %>
   <hr>
   <%= render partial: "form", locals: { user: @user } %>
   <%= button_to "Delete", admin_user_path(@user), method: :delete, data: { confirm: "Are you sure you want to delete this user?" }, class: "btn btn-danger" %>

@@ -1,7 +1,10 @@
 class Product < ApplicationRecord
+  include ImageUrl
+
   belongs_to :product_category
   has_many :cart_products, dependent: :destroy
   has_many :order_products
+  has_one_attached :image
 
   validates :name, presence: true, uniqueness: true
   validates :price, presence: true, numericality: { greater_than_or_equal_to: 0 }

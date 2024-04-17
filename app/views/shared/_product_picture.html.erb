@@ -1,0 +1,5 @@
+<% if url.present? %>
+  <%= image_tag url, class: "img-fluid", alt: "Product image" %>
+<% else %>
+  <%= image_tag 'products/default.png', class: "img-fluid rounded-circle w-50", alt: "Product default image" %>
+<% end %>

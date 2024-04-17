@@ -1,4 +1,12 @@
 <div class="container">
+  <%= render partial: "shared/user_profile_picture", locals: { url: @user.image_url } %>
+  <%= form_with(model: @user, url: user_update_profile_image_path(@user), method: :put, local: true, html: { multipart: true }) do |f| %>
+    <div class="form-group">
+      <%= f.label :image %>
+      <%= f.file_field :image, class: 'form-control-file' %>
+    </div>
+    <%= f.submit "Update Avatar", class: "btn btn-primary" %>
+  <% end %>
   <%= @user.email %>, Hi, this is your profile page.
   <hr>
   <% @user.orders.each do |order| %>

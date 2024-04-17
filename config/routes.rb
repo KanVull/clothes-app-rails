@@ -5,7 +5,10 @@ Rails.application.routes.draw do
   get "/catalog(/:category_slug)", to: "catalog#index", as: "catalog"
   resources :products, only: %i[show]
 
-  resources :users, only: %i[new create]
+  resources :users, only: %i[new create update] do
+    put "update_profile_image"
+    delete "remove_profile_image"
+  end
   get "/profile", to: "profile#index", as: "profile"
   resources :sessions, only: %i[new create]
   resource :session, to: "sessions#destroy", only: %i[destroy], defaults: { id: nil }
@@ -18,7 +21,9 @@ Rails.application.routes.draw do
 
   namespace "admin" do
     get "/", to: "home#index"
-    resources :products
+    resources :products do
+      delete "remove_product_image"
+    end
     resources :product_categories
     resources :carts, only: %i[index show destroy]
     resources :orders, only: %i[index show destroy]
