@@ -1,6 +1,6 @@
 <div class="container">
   <%= render partial: "shared/user_profile_picture", locals: { url: @user.image_url } %>
-  <%= form_with(model: @user, url: user_update_profile_image_path(@user), method: :put, local: true, html: { multipart: true }) do |f| %>
+  <%= form_with(model: @user, url: profile_image_path(@user), method: :put, local: true, html: { multipart: true }) do |f| %>
     <div class="form-group">
       <%= f.label :image %>
       <%= f.file_field :image, class: 'form-control-file' %>
@@ -8,7 +8,7 @@
     <%= f.submit "Change Avatar", class: "btn btn-primary" %>
   <% end %>
   <% if @user.image.attached? %>
-    <%= button_to "Remove Image", user_remove_profile_image_path(@user), method: :delete, class: "btn btn-danger" %>
+    <%= button_to "Remove Image", profile_image_path(@user), method: :delete, class: "btn btn-danger" %>
   <% end %>  
   <hr>  
   <%= @user.email %>, Hi, this is your profile page.

@@ -4,12 +4,11 @@ Rails.application.routes.draw do
   root to: "catalog#index"
   get "/catalog(/:category_slug)", to: "catalog#index", as: "catalog"
   resources :products, only: %i[show]
+  resources :product_images, only: %i[destroy]
 
-  resources :users, only: %i[new create update] do
-    put "update_profile_image"
-    delete "remove_profile_image"
-  end
   get "/profile", to: "profile#index", as: "profile"
+  resources :users, only: %i[new create update]
+  resources :profile_images, only: %i[update destroy]
   resources :sessions, only: %i[new create]
   resource :session, to: "sessions#destroy", only: %i[destroy], defaults: { id: nil }
 

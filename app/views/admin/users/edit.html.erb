@@ -2,7 +2,7 @@
   <h1>Edit User</h1>
   <%= render partial: "shared/user_profile_picture", locals: { url: @user.image_url } %>
   <% if @user.image.attached? %>
-    <%= button_to "Remove Image", user_remove_profile_image_path(@user), method: :delete, class: "btn btn-danger" %>
+    <%= button_to "Remove Image", profile_image_path(@user), method: :delete, class: "btn btn-danger" %>
   <% end %>
   <hr>
   <%= render partial: "form", locals: { user: @user } %>
