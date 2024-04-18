@@ -25,6 +25,7 @@ Rails.application.routes.draw do
   # admin pages
   namespace "admin" do
     get "/", to: "home#index"
+    resources :products
     resources :product_categories
     resources :carts, only: %i[index show destroy]
     resources :orders, only: %i[index show destroy]
