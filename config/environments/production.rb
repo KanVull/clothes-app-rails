@@ -83,6 +83,8 @@ Rails.application.configure do
     open_timeout:         5,
     read_timeout:         5
   }
+  config.action_mailer.default_url_options = { host: "store-lek8.onrender.com", port: 10000 }
+  config.action_mailer.perform_deliveries = true
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
