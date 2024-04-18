@@ -1,0 +1,6 @@
+<% unless user.activated? %>
+  <div class="container mb-3 p-2 border bg-light bg-gradient">
+    Please, activate your account! Click this button to send activation link to your email.
+    <%= link_to "Send activation link", new_user_activation_path, class: "btn btn-outline-info" %>
+  </div>
+<% end %>

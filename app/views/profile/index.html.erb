@@ -1,4 +1,5 @@
 <div class="container">
+  <%= render partial: "shared/activate_user", locals: { user: @user } %>
   <%= @user.email %>, Hi, this is your profile page.
   <hr>
   <% @user.orders.each do |order| %>

@@ -6,8 +6,10 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      flash[:success] = "User successfully created. Please log in."
-      redirect_to new_session_path
+      log_in @user
+      @user.send_activation_email
+      flash[:success] = "Account was successfully created!"
+      redirect_to root_path
     else
       render :new
     end
@@ -16,6 +18,6 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:email, :password)
+    params.require(:user).permit(:email, :password, :password_confirmation)
   end
 end

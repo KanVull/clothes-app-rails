@@ -3,11 +3,7 @@ class SessionsController < ApplicationController
     user = User.find_by(email: params[:email])
 
     if user&.authenticate(params[:password])
-      cookies.signed[:user_id] = {
-        value: user.id,
-        expires: 7.days.from_now,
-        httponly: true
-      }
+      log_in user
       merge_cart
       flash[:success] = "Logged in successfully!"
       redirect_to catalog_url

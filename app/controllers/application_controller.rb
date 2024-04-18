@@ -56,6 +56,14 @@ class ApplicationController < ActionController::Base
   end
   helper_method :current_cart
 
+  def log_in(user)
+    cookies.signed[:user_id] = {
+      value: user.id,
+      expires: 7.days.from_now,
+      httponly: true
+    }
+  end
+
   private
 
   def http_header_token
