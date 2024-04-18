@@ -1,8 +1,11 @@
 class User < ApplicationRecord
+  include ImageUrl
+
   attr_accessor :activation_token, :reset_token
   has_many :orders
   has_one :cart, dependent: :destroy
   has_secure_password
+  has_one_attached :image
 
   validates :email, presence: true, uniqueness: true
 

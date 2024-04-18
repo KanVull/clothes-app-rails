@@ -5,9 +5,11 @@ Rails.application.routes.draw do
   root to: "catalog#index"
   get "/catalog(/:category_slug)", to: "catalog#index", as: "catalog"
   resources :products, only: %i[show]
+  resources :product_images, only: %i[destroy]
 
   # users
-  resources :users, only: %i[new create]
+  resources :users, only: %i[new create update]
+  resources :profile_images, only: %i[update destroy]
   resources :user_activations, only: %i[new edit]
   resources :password_resets, only: %i[new create edit update]
   get "/password_reset_success", to: "password_resets#mail_sent", as: "mail_sent"
@@ -23,7 +25,6 @@ Rails.application.routes.draw do
   # admin pages
   namespace "admin" do
     get "/", to: "home#index"
-    resources :products
     resources :product_categories
     resources :carts, only: %i[index show destroy]
     resources :orders, only: %i[index show destroy]

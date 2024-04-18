@@ -1,0 +1,7 @@
+<div class="container w-25">
+  <% if url.present? %>
+    <%= image_tag url, class: "img-200 rounded-circle", alt: "User profile image" %>
+  <% else %>
+    <%= image_tag 'users/default.png', class: "img-200 rounded-circle", alt: "User profile default image" %>
+  <% end %>
+</div>

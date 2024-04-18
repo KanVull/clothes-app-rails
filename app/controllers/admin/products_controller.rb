@@ -48,6 +48,12 @@ class Admin::ProductsController < Admin::BaseController
     redirect_to admin_products_path
   end
 
+  def remove_product_image
+    product = Product.find(params[:product_id])
+    product.image.purge
+    redirect_back fallback_location: request.referrer
+  end
+
   private
 
   def product_params
@@ -58,7 +64,8 @@ class Admin::ProductsController < Admin::BaseController
       :image,
       :description,
       :product_category_id,
-      :published_at
+      :published_at,
+      :image
     )
   end
 

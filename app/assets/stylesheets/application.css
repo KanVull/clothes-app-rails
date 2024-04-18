@@ -16,3 +16,19 @@ body {
   padding-top: 20px;
   color:#fff;
 }
+
+.img-200 {
+  object-fit: cover;
+  object-position: right;
+  width: 200px;
+  height: 200px;
+  overflow: hidden;
+}
+
+.img-70 {
+  object-fit: cover;
+  object-position: right;
+  width: 70px;
+  height: 70px;
+  overflow: hidden;
+}
