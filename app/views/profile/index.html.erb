@@ -5,8 +5,12 @@
       <%= f.label :image %>
       <%= f.file_field :image, class: 'form-control-file' %>
     </div>
-    <%= f.submit "Update Avatar", class: "btn btn-primary" %>
+    <%= f.submit "Change Avatar", class: "btn btn-primary" %>
   <% end %>
+  <% if @user.image.attached? %>
+    <%= button_to "Remove Image", user_remove_profile_image_path(@user), method: :delete, class: "btn btn-danger" %>
+  <% end %>  
+  <hr>  
   <%= @user.email %>, Hi, this is your profile page.
   <hr>
   <% @user.orders.each do |order| %>
