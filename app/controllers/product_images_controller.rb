@@ -1,4 +1,4 @@
-class ProfileImagesController < ApplicationController
+class ProductImagesController < ApplicationController
   def destroy
     product = Product.find(params[:product_id])
     product.image.purge
