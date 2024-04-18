@@ -1,4 +1,5 @@
 <div class="container">
+  <%= render partial: "shared/activate_user", locals: { user: @user } %>
   <%= render partial: "shared/user_profile_picture", locals: { url: @user.image_url } %>
   <%= form_with(model: @user, url: profile_image_path(@user), method: :put, local: true, html: { multipart: true }) do |f| %>
     <div class="form-group">
@@ -10,7 +11,7 @@
   <% if @user.image.attached? %>
     <%= button_to "Remove Image", profile_image_path(@user), method: :delete, class: "btn btn-danger" %>
   <% end %>  
-  <hr>  
+  <hr>
   <%= @user.email %>, Hi, this is your profile page.
   <hr>
   <% @user.orders.each do |order| %>

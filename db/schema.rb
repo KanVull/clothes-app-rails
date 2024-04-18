@@ -115,6 +115,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_17_133334) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "image"
+    t.string "activation_digest"
+    t.boolean "activated", default: false
+    t.datetime "activated_at"
+    t.string "reset_password_digest"
+    t.datetime "reset_password_sent_at"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
