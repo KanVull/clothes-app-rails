@@ -11,6 +11,9 @@ gem "bcrypt", "~> 3.1.7"
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
 
+# For both servers rails and tailwind
+gem 'foreman', '~> 0.87.2'
+
 # Storing images in app inside google storage busket
 gem "google-cloud-storage", "~> 1.47"
 
@@ -42,6 +45,9 @@ gem "sprockets-rails"
 
 # Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
 gem "stimulus-rails"
+
+# CSS
+gem 'tailwindcss-rails', '~> 2.3'
 
 # Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
 gem "turbo-rails"
